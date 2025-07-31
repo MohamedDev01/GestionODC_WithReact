@@ -1,0 +1,133 @@
+.carousel-container {
+  position: relative;
+}
+
+.carousel-description {
+  padding: 2rem;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.our-objective {
+  padding: 4rem 2rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+.our-objective h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.objective-columns {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.objective-column {
+  flex: 1 1 30%;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+.Argument {
+  display: flex;
+  justify-content: space-around;
+  padding: 4rem 2rem;
+  background-color: #fafafa;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.Arg-1,
+.Arg-2,
+.Arg-3 {
+  flex: 1 1 30%;
+  text-align: center;
+}
+
+.icon-circle img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.Formation {
+  padding: 4rem 2rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+.TitreFormation h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.TitreFormation p {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.ListFormation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.RA, .IA, .IO, .IO-T {
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.RA img,
+.IA img,
+.IO img,
+.IO-T img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 8px;
+}
+
+.Atout {
+  display: flex;
+  justify-content: space-around;
+  padding: 4rem 2rem;
+  background-color: #f8f8f8;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.Atout-1,
+.Atout-2,
+.Atout-3 {
+  flex: 1 1 30%;
+  text-align: center;
+}
+
+.icon-circles img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.inscription-footer {
+  padding: 4rem 2rem;
+  background-color: #ff6f00;
+  color: #fff;
+  text-align: center;
+}
+
+.inscription-footer .cta-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  color: #ff6f00;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}

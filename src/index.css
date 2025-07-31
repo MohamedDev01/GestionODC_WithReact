@@ -7,8 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   position: relative;
-  padding-bottom: 220px; /* Hauteur du footer + espace */
-  padding-top: 100px; /* Hauteur du header */
+  padding-top: 100px; /* Hauteur du header fixe */
 }
 
 code {
