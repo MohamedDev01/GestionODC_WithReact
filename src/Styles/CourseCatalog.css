@@ -1,0 +1,206 @@
+/* src/Styles/CourseCatalog.css (Version Corrigée) */
+
+.course-catalog-page {
+  background-color: #ffffff;
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.container {
+  max-width: 1140px; 
+  margin: 0 auto; 
+  padding: 0 2rem;
+}
+
+.category-section { 
+  text-align: center; 
+  margin-bottom: 4rem; 
+}
+
+.page-main-title { 
+  font-size: 24px; 
+  font-weight: 700; 
+  color: #ff7000; 
+  text-transform: uppercase; 
+  margin-bottom: 2.5rem; 
+}
+
+.category-slider { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 1rem; 
+  margin-bottom: 2.5rem; 
+}
+
+.slider-arrow { 
+  background-color: #f0f0f0; 
+  border: none; 
+  border-radius: 50%; 
+  width: 40px; 
+  height: 40px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+  font-size: 1rem; 
+  color: #888; 
+  transition: background-color 0.3s ease; 
+}
+
+.slider-arrow:hover { 
+  background-color: #e0e0e0; 
+}
+
+.category-list { 
+  display: flex; 
+  gap: 1.5rem; 
+}
+
+.category-item { 
+  background-color: #f0f0f0; 
+  padding: 1rem; 
+  border-radius: 12px; 
+  text-align: center; 
+  width: 130px; 
+  cursor: pointer; 
+  transition: transform 0.2s ease-in-out; 
+}
+
+.category-item:hover { 
+  transform: translateY(-5px); 
+}
+
+.category-icon-wrapper { 
+  background-color: #ff7000; 
+  width: 70px; 
+  height: 70px; 
+  border-radius: 50%; 
+  margin: 0 auto 1rem auto; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  color: black; 
+  font-size: 2rem; 
+}
+
+.category-item p { 
+  font-size: 14px; 
+  font-weight: 600; 
+  color: #333; 
+}
+
+.voir-plus-btn { 
+  display: inline-block; 
+  padding: 0.7rem 2rem; 
+  background-color: #ff7000; 
+  color: #ffffff; 
+  border: none; 
+  border-radius: 8px; 
+  font-weight: 600; 
+  font-size: 14px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+  text-decoration: none; 
+}
+
+.voir-plus-btn:hover { 
+  background-color: #e66a00; 
+}
+
+.popular-courses-section { 
+  margin-top: 3rem; 
+  padding: 2.5rem; 
+  background-color: #f8f8f8; 
+  border-radius: 12px; 
+}
+
+.section-title-left { 
+  font-size: 16px; 
+  font-weight: 700; 
+  text-transform: uppercase; 
+  color: #333; 
+  margin-bottom: 2rem; 
+  text-align: left; 
+}
+
+.courses-grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 1.5rem; 
+}
+
+.course-card { 
+  overflow: hidden; /* Garde les coins arrondis du placeholder */
+  border-radius: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  cursor: pointer; 
+  background-color: #e9ecef; /* Ajout d'un fond à la carte entière si besoin */
+}
+
+.course-card:hover { 
+  transform: translateY(-5px); 
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); 
+}
+
+/*
+  NOUVELLE RÈGLE CSS :
+  Ceci crée la boîte noire qui remplace l'image.
+*/
+.course-placeholder {
+  height: 150px;
+  background-color: #000000; /* Fond noir */
+  color: #ffffff; /* Texte blanc */
+  display: flex;
+  align-items: center; /* Centre le texte verticalement */
+  justify-content: center; /* Centre le texte horizontalement */
+  text-align: center;
+  padding: 1rem;
+}
+
+.course-placeholder h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.pagination { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 0.5rem; 
+  margin-top: 3rem; 
+}
+
+.pagination-link, .pagination-arrow { 
+  text-decoration: none; 
+  font-size: 14px; 
+  font-weight: 600; 
+  color: #888; 
+  padding: 0.5rem 0.8rem; 
+  border-radius: 5px; 
+  transition: all 0.2s ease; 
+}
+
+.pagination-link:hover, .pagination-arrow:hover { 
+  background-color: #f0f0f0; 
+  color: #333; 
+}
+
+.pagination-link.active { 
+  color: #ff7000; 
+  font-weight: 700; 
+}
+
+@media (max-width: 992px) { 
+  .courses-grid { grid-template-columns: repeat(2, 1fr); } 
+  .category-list { overflow-x: auto; padding-bottom: 1rem; } 
+  .slider-arrow { display: none; } 
+}
+
+@media (max-width: 768px) { 
+  .courses-grid { grid-template-columns: 1fr; } 
+  .popular-courses-section { padding: 2rem 1.5rem; } 
+  .course-catalog-page { padding-top: 90px; } 
+}

@@ -15,6 +15,7 @@ import Environnement from '../Assets/Icons/Environnement.png';
 import ExpertIcon from '../Assets/Icons/Expert.png';
 import Navbar from '../Components/Navbar'; 
 import Footer from '../Components/Footer';
+import { Link } from 'react-router-dom';
 
 
 <Navbar /> // Import Navbar component
@@ -224,7 +225,6 @@ const Home = () => {
           </div>
         </div>
       </main>
-
       <section className="inscription-footer">
         <div className="content">
           <h2>Inscrivez-vous gratuitement</h2>
@@ -233,9 +233,10 @@ const Home = () => {
             <br />
             et si vous êtes parmi les meilleurs, vous serez retenus.
           </p>
-          <a href="#" className="cta-button">Inscrivez-vous</a>
+          
+          <Link to="/register" className="cta-button">Inscrivez-vous</Link>
         </div>
-      </section>
+      </section> 
     </>
   );
 };

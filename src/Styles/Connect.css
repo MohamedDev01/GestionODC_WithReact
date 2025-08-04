@@ -1,0 +1,183 @@
+/* src/Styles/Connect.css (Version fidèle à la nouvelle maquette) */
+
+/* Définition des couleurs pour une maintenance facile */
+:root {
+  --orange-primary: #f97316;
+  --dark-text: #1f2937;
+  --light-text: #6b7280;
+  --border-color: #d1d5db;
+  --page-bg: #f9fafb;
+}
+
+.connect-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 180px); /* Ajustez si la hauteur nav+footer est différente */
+  padding: 2rem;
+  background-color: var(--page-bg);
+}
+
+.connect-card {
+  display: flex;
+  max-width: 1050px;
+  width: 100%;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+/* --- Colonne de Gauche --- */
+.connect-left-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.phone-image {
+  max-width: 300px;
+  width: 100%;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+}
+
+/* --- Colonne de Droite --- */
+.connect-right-panel {
+  flex: 1.5;
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.connect-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--dark-text);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.connect-subtitle {
+  font-size: 14px;
+  color: var(--light-text);
+  margin-bottom: 2.5rem;
+  max-width: 450px;
+  line-height: 1.6;
+}
+
+.connect-form {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 1.5rem; /* Espace vertical et horizontal */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: var(--orange-primary); /* Labels en orange */
+  font-weight: 500;
+}
+
+.form-group input {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border-color); /* Ligne grise par défaut */
+  padding: 8px 0;
+  background-color: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-bottom-color: var(--orange-primary); /* Ligne devient orange au focus */
+}
+
+.form-terms {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.form-terms label {
+  font-size: 14px;
+  color: var(--light-text);
+}
+
+.form-terms input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--orange-primary); /* La case cochée sera orange */
+}
+
+.submit-button {
+  width: auto;
+  display: inline-block;
+  background-color: #000000;
+  color: var(--orange-primary); /* Texte du bouton en orange */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #333333;
+}
+
+.login-prompt {
+  margin-top: 1.5rem;
+  font-size: 14px;
+  color: var(--light-text);
+}
+
+.login-prompt a {
+  color: #000000; /* Lien en noir */
+  font-weight: 700; /* et en gras */
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+  .connect-left-panel {
+    display: none;
+  }
+  .connect-card {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .connect-title {
+    font-size: 28px;
+  }
+  .connect-right-panel {
+    padding: 2rem 1.5rem;
+  }
+}

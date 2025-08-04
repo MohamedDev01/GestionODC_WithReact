@@ -1,7 +1,11 @@
+// src/Components/Navbar.js (VERSION CORRIGÉE)
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
 import '../Styles/Navbar.css';
+// Note: `require` peut poser problème avec Create React App / Vite. L'import est plus sûr.
+import LogoNav from '../Assets/LogoNav.png'; 
+
 const Navbar = () => {
   const [menuActive, setMenuActive] = useState(false);
   const location = useLocation();
@@ -12,7 +16,7 @@ const Navbar = () => {
 
   const menuItems = [
     { label: "Accueil", path: "/home" },
-    { label: "S'inscrire", path: "/login" },
+    { label: "S'inscrire", path: "/register" },
     { label: "Postuler", path: "/hire" },
     { label: "Certificat", path: "/certificat" },
     { label: "Apprendre", path: "/learn" },
@@ -22,7 +26,8 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo">
         <Link to="/home">
-          <img src={require("../Assets/LogoNav.png")} alt="Logo ODC" className="logo-img" />
+          {/* J'ai remplacé `require` par la variable importée, c'est plus moderne */}
+          <img src={LogoNav} alt="Logo ODC" className="logo-img" />
         </Link>
       </div>
 
