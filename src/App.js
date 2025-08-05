@@ -1,4 +1,4 @@
-// App.js (VERSION CORRIGÉE ET COMPLÈTE)
+// src/App.js (VERSION CORRIGÉE)
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -10,12 +10,12 @@ import PageTitle from './Components/PageTitle';
 
 // Import de vos pages
 import Home from './Complete-Page/Home';
-import Connect from './Complete-Page/Connect';         // Page d'INSCRIPTION
-import LoginPage from './Components/LoginPage';     // ✅ IMPORTATION MANQUANTE AJOUTÉE
+import Connect from './Complete-Page/Connect';
+import LoginPage from './Components/LoginPage';     
 import Hire from './Complete-Page/Hire';
-import Certificat from './Complete-Page/Certificat';
 import Learn from './Complete-Page/Learn';
 import CourseCatalog from './Components/CourseCatalog';
+import CertificateSearch from './Components/CertificateSearch'; 
 
 function App() {
   return (
@@ -27,19 +27,19 @@ function App() {
           {/* Routes générales */}
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          
-          {/* 
-            ✅ CORRECTION : 
-            On rajoute les routes pour les pages d'inscription et de connexion.
-          */}
-          <Route path="/register" element={<Connect />} />   {/* Inscription est sur /register */}
-          <Route path="/login" element={<LoginPage />} />      {/* Connexion est sur /login */}
-          
+
+          {/* Routes d'authentification */}
+          <Route path="/register" element={<Connect />} />
+          <Route path="/login" element={<LoginPage />} />
+
           {/* Autres pages */}
           <Route path="/hire" element={<Hire />} />
-          <Route path="/certificat" element={<Certificat />} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/learn/courses" element={<CourseCatalog />} />
+          
+     
+          <Route path="/certificat" element={<CertificateSearch />} />
+
         </Routes>
         <Footer />
       </div>

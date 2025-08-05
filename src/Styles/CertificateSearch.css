@@ -1,0 +1,72 @@
+/* Conteneur pour centrer la carte sur la page */
+.search-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); 
+  background-color: #f4f5f7; 
+}
+
+/* La carte blanche principale */
+.certificate-card {
+  background-color: #ffffff;
+  padding: 2.5rem 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Le formulaire lui-même */
+.certificate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem; /* Espace entre les champs */
+}
+
+/* Groupe contenant une icône et un input */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Style des champs de saisie */
+.form-input {
+  width: 100%;
+  padding: 1rem; /* Padding ajusté car il n'y a plus d'icône */
+  border: 2px solid #ff8c00; /* Bordure orange */
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #333;
+  transition: box-shadow 0.3s ease;
+  box-sizing: border-box; /* Important pour que le padding n'augmente pas la largeur */
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.3); /* Lueur orange au focus */
+}
+
+.form-input::placeholder {
+  color: #aaa;
+}
+
+/* Le bouton "Rechercher" */
+.submit-btn {
+  background-color: #ff6600; /* Un orange plus vif */
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem; /* Espace supplémentaire avant le bouton */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #e65c00; /* Orange plus foncé au survol */
+  transform: translateY(-2px);
+}
