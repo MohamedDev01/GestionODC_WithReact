@@ -13,12 +13,8 @@ import IoT from '../Assets/IoT-devices.png';
 import Equipement from '../Assets/Icons/Equipement.png';
 import Environnement from '../Assets/Icons/Environnement.png';
 import ExpertIcon from '../Assets/Icons/Expert.png';
-import Navbar from '../Components/Navbar'; 
-import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 
-
-<Navbar /> // Import Navbar component
 const Home = () => {
   return (
     <>
@@ -77,13 +73,13 @@ const Home = () => {
           {/* Carousel description */}
           <div className="carousel-description">
             <h2>
-              <strong>Présentation de l’Orange Digital Center</strong>
+              <strong>Présentation de l'Orange Digital Center</strong>
             </h2>
             <p>
-              Les Orange Digital Centers sont des centres d’accompagnement et de
+              Les Orange Digital Centers sont des centres d'accompagnement et de
               développement des compétences numériques. De la formation au codage à
-              la création d’entreprise, ils couvrent un large champ d’activités.
-              Gratuits et ouverts à tous, ces centres fondent l’apprentissage sur
+              la création d'entreprise, ils couvrent un large champ d'activités.
+              Gratuits et ouverts à tous, ces centres fondent l'apprentissage sur
               des projets concrets. Ainsi des programmes de formation dédiés aux
               métiers du digital sont proposés aux étudiants, aux personnes sans
               emploi ou déscolarisées, aux jeunes entrepreneurs...
@@ -97,14 +93,14 @@ const Home = () => {
               <div className="objective-column">
                 <h4>Former sur le digital</h4>
                 <p>
-                  Permettre à tous d’avoir une chance d’accéder à des formations de
+                  Permettre à tous d'avoir une chance d'accéder à des formations de
                   qualités gratuitement.
                 </p>
               </div>
               <div className="objective-column">
                 <h4>Incuber les startups</h4>
                 <p>
-                  Permettre à tous d’avoir une chance d’accéder à des formations de
+                  Permettre à tous d'avoir une chance d'accéder à des formations de
                   qualités gratuitement.
                 </p>
               </div>
@@ -225,6 +221,7 @@ const Home = () => {
           </div>
         </div>
       </main>
+
       <section className="inscription-footer">
         <div className="content">
           <h2>Inscrivez-vous gratuitement</h2>
@@ -236,7 +233,7 @@ const Home = () => {
           
           <Link to="/register" className="cta-button">Inscrivez-vous</Link>
         </div>
-      </section> 
+      </section>
     </>
   );
 };
