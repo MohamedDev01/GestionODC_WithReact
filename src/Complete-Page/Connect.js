@@ -1,22 +1,18 @@
-// src/Complete-Page/Connect.jsx
+// src/Complete-Page/Connect.jsx (VERSION MISE À JOUR)
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../Styles/Connect.css'; // On va utiliser ce fichier CSS
-
-// Assurez-vous que le nom du fichier image est correct
-import phoneImage from '../Assets/Apps.png'; 
+import '../Styles/Connect.css';
+import phoneImage from '../Assets/Apps.png';
 
 const Connect = () => {
   return (
     <main className="connect-page-container">
       <div className="connect-card">
-        {/* Colonne de gauche avec le téléphone */}
         <div className="connect-left-panel">
           <img src={phoneImage} alt="Application Orange Digital Center" className="phone-image" />
         </div>
 
-        {/* Colonne de droite avec le formulaire */}
         <div className="connect-right-panel">
           <h1 className="connect-title">Inscrivez-vous dès maintenant !</h1>
           <p className="connect-subtitle">
@@ -26,6 +22,7 @@ const Connect = () => {
           <form className="connect-form">
             <div className="form-grid">
               
+              {/* On revient à deux champs séparés pour Nom et Prénoms */}
               <div className="form-group">
                 <label htmlFor="nom">Nom</label>
                 <input type="text" id="nom" name="nom" />
@@ -34,6 +31,7 @@ const Connect = () => {
                 <label htmlFor="prenoms">Prénoms</label>
                 <input type="text" id="prenoms" name="prenoms" />
               </div>
+              
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input type="email" id="email" name="email" />
