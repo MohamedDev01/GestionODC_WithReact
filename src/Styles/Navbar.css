@@ -1,9 +1,6 @@
-/* ===== NAVBAR REACT COMPONENT STYLES ===== */
-/* Styles extraits exactement du fichier Style.css original */
-
 /* ---------------- Navigation ---------------- */
 .navbar {
-    background-color: #000000;
+    background-color: var(--color-black);
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -20,7 +17,7 @@
     height: 50px;
     width: auto;
     margin-top: 10px;
-    margin-left: 25px;
+    margin-left: 60px;
 }
 
 .menu {
@@ -43,43 +40,24 @@
 
 .menu a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--color-white);
     font-weight: bold;
     font-size: 14px;
     padding: 8px;
 }
 
 .menu a.active {
-    color: #ff7000;
-    text-decoration:none;
+    color: var(--color-primary);
+    text-decoration: none;
     text-decoration-thickness: 2px;
 }
 
 .menu a:hover,
 a:hover {
-    color: #ff7000;
+    color: var(--color-primary);
     text-decoration: underline;
-    text-decoration-color: #ffffff;
+    text-decoration-color: var(--color-white);
     text-decoration-thickness: 2px;
-}
-
-.signup {
-    background-color: #ff7000;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: left;
-    width: 100%;
-    display: block;
-    font-size: 14px;
-}
-
-.signup:hover {
-    background-color: #ffffff;
-    color: #ff7000;
 }
 
 .menu-toggle {
@@ -92,32 +70,33 @@ a:hover {
 .menu-toggle span {
     height: 3px;
     width: 25px;
-    background-color: #ffffff;
+    background-color: var(--color-white);
     margin: 4px 0;
     border-radius: 2px;
 }
 
-/* ---------------- Responsive ---------------- */
-@media screen and (max-width: 768px) {
+/* Responsive Navigation - Tablette et mobile */
+@media screen and (max-width: 1024px) {
     /* Navigation fixes */
     .navbar {
-        padding: 10px 15px;
-        min-height: 70px;
+        padding: 10px 20px;
+        min-height: 80px;
         height: auto;
         flex-wrap: wrap;
     }
 
     .logo-img {
-        height: 35px;
-        margin-left: 10px;
+        height: 40px;
+        margin-left: 20px;
     }
 
     .navbar .logo {
-        margin-left: 5px;
+        margin-left: 10px;
     }
 
     .menu-toggle {
         display: flex;
+        margin-right: 30px; /* Décalé de l'extrémité */
         margin-left: auto;
     }
 
@@ -127,7 +106,7 @@ a:hover {
         left: 0;
         width: 100%;
         flex-direction: column;
-        background-color: #000000;
+        background-color: var(--color-black);
         display: none;
         padding: 0;
         margin: 0;
@@ -156,6 +135,27 @@ a:hover {
     }
 }
 
+/* Mobile spécifique */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px;
+        min-height: 70px;
+    }
+
+    .logo-img {
+        height: 35px;
+        margin-left: 10px;
+    }
+
+    .navbar .logo {
+        margin-left: 5px;
+    }
+
+    .menu-toggle {
+        margin-right: 20px; /* Décalé de l'extrémité sur mobile */
+    }
+}
+
 @media screen and (max-width: 480px) {
     .navbar {
         padding: 10px;
@@ -173,5 +173,12 @@ a:hover {
 
     .menu-toggle span {
         width: 20px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar {
+        display: none;
     }
 }

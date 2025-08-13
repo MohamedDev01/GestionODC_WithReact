@@ -23,22 +23,24 @@ function App() {
       <div className="App">
         <PageTitle />
         <Navbar />
-        <Routes>
-          {/* Routes générales */}
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+        <div className="page-content">
+          <Routes>
+            {/* Routes générales */}
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
 
-          {/* Routes d'authentification */}
-          <Route path="/register" element={<Connect />} />
-          <Route path="/login" element={<LoginPage />} />
+            {/* Routes d'authentification */}
+            <Route path="/register" element={<Connect />} />
+            <Route path="/login" element={<LoginPage />} />
 
-          {/* Autres pages */}
-          <Route path="/hire" element={<Hire />} />
-          <Route path="/learn" element={<Learn />} />
-          <Route path="/learn/courses" element={<CourseCatalog />} />
-          <Route path="/certificat" element={<CertificateSearch />} />
+            {/* Autres pages */}
+            <Route path="/hire" element={<Hire />} />
+            <Route path="/learn" element={<Learn />} />
+            <Route path="/learn/courses" element={<CourseCatalog />} />
+            <Route path="/certificat" element={<CertificateSearch />} />
 
-        </Routes>
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>

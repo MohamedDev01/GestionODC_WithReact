@@ -6,7 +6,7 @@ import '../Styles/Learn.css';
 
 const Learn = () => {
   return (
-    // MODIFICATION : Ajout de la classe "learn-landing-page" pour isoler les styles
+   
     <main className="learn-landing-page"> 
       <div className="container-learning">
         <Link to="/learn/courses">

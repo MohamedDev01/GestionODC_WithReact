@@ -1,64 +1,243 @@
 // src/Complete-Page/Connect.jsx
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../Styles/Connect.css'; // On va utiliser ce fichier CSS
-
-// Assurez-vous que le nom du fichier image est correct
-import phoneImage from '../Assets/Apps.png'; 
+import '../Styles/Connect.css';
+import phoneImage from '../Assets/Apps.png';
 
 const Connect = () => {
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenoms: '',
+    email: '',
+    numero: '',
+    password: '',
+    confirmPassword: '',
+    terms: false
+  });
+
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // --- VALIDATIONS ---
+  const validateName = (value, label) => {
+    const regex = /^[\p{L}\s\-']+$/u;
+    if (!value.trim()) return `${label} est obligatoire`;
+    if (!regex.test(value)) return `${label} ne doit contenir que des lettres, espaces, tirets et apostrophes`;
+    if (value.length < 2) return `${label} doit contenir au moins 2 caractères`;
+    return '';
+  };
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim()) return 'L’email est obligatoire';
+    if (!regex.test(email)) return 'Format d’email invalide';
+    return '';
+  };
+
+  const validatePhone = (phone) => {
+    const regex = /^\+225\d{10}$/;
+    if (!phone.trim()) return 'Le numéro est obligatoire';
+    if (!regex.test(phone)) return 'Format attendu : +225 suivi de 10 chiffres';
+    return '';
+  };
+
+  const validatePassword = (password, confirm) => {
+    let err = {};
+    if (!password) err.password = 'Mot de passe obligatoire';
+    else if (password.length < 6) err.password = '6 caractères minimum';
+    
+    if (!confirm) err.confirmPassword = 'Confirmation obligatoire';
+    else if (password && confirm && password !== confirm) {
+      err.confirmPassword = 'Les mots de passe ne correspondent pas';
+    }
+    return err;
+  };
+
+  // --- HANDLERS ---
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    let val = type === 'checkbox' ? checked : value;
+
+    if (name === 'nom' || name === 'prenoms') val = val.replace(/[^\p{L}\s\-']/gu, '');
+    
+    if (name === 'numero') {
+      // Supprimer tout sauf les chiffres
+      let digits = val.replace(/[^\d]/g, '');
+      // Limiter à 10 chiffres maximum
+      digits = digits.slice(0, 10);
+      // Ajouter +225 automatiquement
+      val = '+225' + digits;
+    }
+
+    setFormData(prev => ({ ...prev, [name]: val }));
+
+    // Validation en direct
+    let fieldError = '';
+    if (name === 'nom') fieldError = validateName(val, 'Nom');
+    if (name === 'prenoms') fieldError = validateName(val, 'Prénoms');
+    if (name === 'email') fieldError = validateEmail(val);
+    if (name === 'numero') fieldError = validatePhone(val);
+    if (name === 'password' || name === 'confirmPassword') {
+      // Get the current values for both password fields
+      const currentPassword = name === 'password' ? val : formData.password;
+      const currentConfirmPassword = name === 'confirmPassword' ? val : formData.confirmPassword;
+      
+      const pwdErr = validatePassword(currentPassword, currentConfirmPassword);
+      
+      // Only update password-related errors, keep other errors intact
+      setErrors(prev => ({ 
+        ...prev, 
+        password: pwdErr.password || '',
+        confirmPassword: pwdErr.confirmPassword || ''
+      }));
+      return;
+    }
+    setErrors(prev => ({ ...prev, [name]: fieldError }));
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErr = {
+      nom: validateName(formData.nom, 'Nom'),
+      prenoms: validateName(formData.prenoms, 'Prénoms'),
+      email: validateEmail(formData.email),
+      numero: validatePhone(formData.numero),
+      ...validatePassword(formData.password, formData.confirmPassword),
+      terms: formData.terms ? '' : 'Vous devez accepter les conditions'
+    };
+    setErrors(newErr);
+    if (!Object.values(newErr).some(Boolean)) {
+      console.log('Inscription valide:', formData);
+      alert('Inscription réussie !');
+    }
+  };
+
+  const isFormValid = () => {
+    return (
+      Object.values(errors).every(err => !err) &&
+      Object.values(formData).every(val => val || val === true) &&
+      formData.terms
+    );
+  };
+
   return (
     <main className="connect-page-container">
       <div className="connect-card">
-        {/* Colonne de gauche avec le téléphone */}
         <div className="connect-left-panel">
           <img src={phoneImage} alt="Application Orange Digital Center" className="phone-image" />
         </div>
 
-        {/* Colonne de droite avec le formulaire */}
         <div className="connect-right-panel">
           <h1 className="connect-title">Inscrivez-vous dès maintenant !</h1>
           <p className="connect-subtitle">
-            Accédez gratuitement à des formations, outils et opportunités pour développer ses compétences numériques et entreprendre.
+            Accédez gratuitement à des formations, outils et opportunités pour développer vos compétences numériques et entreprendre.
           </p>
-          
-          <form className="connect-form">
-            <div className="form-grid">
-              
-              <div className="form-group">
-                <label htmlFor="nom">Nom</label>
-                <input type="text" id="nom" name="nom" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="prenoms">Prénoms</label>
-                <input type="text" id="prenoms" name="prenoms" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="numero">Numéro</label>
-                <input type="tel" id="numero" name="numero" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Mot de passe</label>
-                <input type="password" id="password" name="password" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="confirm-password">Confirmer mot de passe</label>
-                <input type="password" id="confirm-password" name="confirm-password" />
-              </div>
 
+          <form className="connect-form" onSubmit={handleSubmit}>
+            <div className="form-grid">
+              {['nom', 'prenoms', 'email', 'numero', 'password', 'confirmPassword'].map((field, idx) => (
+                <div className="form-group" key={idx}>
+                  <label htmlFor={field}>
+                    {field === 'confirmPassword'
+                      ? 'Confirmer mot de passe'
+                      : field.charAt(0).toUpperCase() + field.slice(1)}
+                  </label>
+                  {field === 'numero' ? (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <span className="phone-prefix">+225</span>
+                      <input
+                        type="tel"
+                        id="numero"
+                        name="numero"
+                        value={formData.numero.replace('+225', '')}
+                        onChange={handleInputChange}
+                        maxLength={10}
+                        pattern="[0-9]{10}"
+                        placeholder="XXXXXXXXXX"
+                        className={errors.numero ? 'error' : ''}
+                        style={{ flex: 1 }}
+                      />
+                    </div>
+                  ) : field === 'password' || field === 'confirmPassword' ? (
+                    <div className="password-field">
+                      <input
+                        type={
+                          field === 'password' 
+                            ? (showPassword ? 'text' : 'password')
+                            : (showConfirmPassword ? 'text' : 'password')
+                        }
+                        id={field}
+                        name={field}
+                        value={formData[field]}
+                        onChange={handleInputChange}
+                        placeholder=""
+                        className={errors[field] ? 'error' : ''}
+                      />
+                      <button
+                        type="button"
+                        className="eye-toggle"
+                        onClick={field === 'password' ? togglePasswordVisibility : toggleConfirmPasswordVisibility}
+                        aria-label={
+                          field === 'password' 
+                            ? (showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe')
+                            : (showConfirmPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe')
+                        }
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          {(field === 'password' ? showPassword : showConfirmPassword) ? (
+                            // Eye slash - password visible, click to hide
+                            <>
+                              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                              <line x1="1" y1="1" x2="23" y2="23"/>
+                            </>
+                          ) : (
+                            // Eye - password hidden, click to show
+                            <>
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </>
+                          )}
+                        </svg>
+                      </button>
+                    </div>
+                  ) : (
+                    <input
+                      type={field === 'email' ? 'email' : 'text'}
+                      id={field}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleInputChange}
+                      placeholder={`Entrez votre ${field}`}
+                      className={errors[field] ? 'error' : ''}
+                    />
+                  )}
+                  {errors[field] && <span className="error-message">{errors[field]}</span>}
+                </div>
+              ))}
             </div>
 
             <div className="form-terms">
-              <input type="checkbox" id="terms" name="terms" />
-              <label htmlFor="terms">J'ai lu les conditions d'utilisations</label>
+              <input
+                type="checkbox"
+                id="terms"
+                name="terms"
+                checked={formData.terms}
+                onChange={handleInputChange}
+              />
+              <label htmlFor="terms">J'ai lu les conditions d'utilisation</label>
+              {errors.terms && <span className="error-message">{errors.terms}</span>}
             </div>
 
-            <button type="submit" className="submit-button">
+            <button type="submit" className={`submit-button ${!isFormValid() ? 'disabled' : ''}`} disabled={!isFormValid()}>
               CONFIRMEZ VOTRE INSCRIPTION
             </button>
           </form>

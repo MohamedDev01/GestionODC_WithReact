@@ -25,7 +25,7 @@ const Home = () => {
             id="carouselExample"
             className="carousel slide"
             data-bs-ride="carousel"
-            data-bs-interval="9000"
+            data-bs-interval="5000"
           >
             <div className="carousel-inner">
               <div className="carousel-item active">
@@ -50,6 +50,14 @@ const Home = () => {
                 />
               </div>
             </div>
+            
+            {/* Barre d'état d'avancement */}
+            <div className="carousel-progress">
+              <div className="progress-bar" data-slide="0"></div>
+              <div className="progress-bar" data-slide="1"></div>
+              <div className="progress-bar" data-slide="2"></div>
+            </div>
+            
             <button
               className="carousel-control-prev"
               type="button"
