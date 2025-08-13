@@ -1,12 +1,11 @@
-// LoginPage.jsx
+// src/Components/LoginPage.jsx (VERSION MISE À JOUR)
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaLock } from 'react-icons/fa'; // On utilise des icônes pour un rendu propre
-import '../Styles/LoginPage.css'; // Un nouveau fichier CSS pour cette page
+import { FaUser, FaLock } from 'react-icons/fa'; 
+import '../Styles/LoginPage.css'; 
 
 const LoginPage = () => {
-  // On garde l'état pour que les champs de texte soient contrôlés
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
@@ -14,14 +13,11 @@ const LoginPage = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  // La fonction handleSubmit est simplifiée pour le moment
   const handleSubmit = (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page
-    
-    // Pour l'instant, on affiche juste les données dans la console
+    e.preventDefault(); 
     console.log("Tentative de connexion avec :", credentials);
     alert("Simulation de connexion réussie !");
-    navigate('/home'); // Redirige vers la page d'accueil
+    navigate('/profile'); 
   };
 
   return (
@@ -61,13 +57,20 @@ const LoginPage = () => {
           <div className="login-options">
             <div className="remember-me">
               <input type="checkbox" id="remember" />
-              <label htmlFor="remember">restez connecté(e)</label>
+              <label htmlFor="remember">Restez connecté(e)</label>
             </div>
             <Link to="/mot-de-passe-oublie" className="forgot-password-link">
               Mot de passe oublié ?
             </Link>
           </div>
         </form>
+
+        {/* ----- AJOUT DU LIEN D'INSCRIPTION ICI ----- */}
+        <p className="register-prompt">
+          Vous n'avez pas de compte ? <Link to="/register">Inscrivez-vous</Link>
+        </p>
+        {/* ----- FIN DE L'AJOUT ----- */}
+
       </div>
     </main>
   );
