@@ -1,5 +1,3 @@
-// src/Components/LoginPage.jsx (VERSION MISE À JOUR)
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock } from 'react-icons/fa'; 

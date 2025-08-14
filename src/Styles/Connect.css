@@ -103,15 +103,15 @@
   font-weight: 500;
 }
 
-/* ----- DÉBUT DE LA CORRECTION AVEC !important ----- */
+
 .connect-right-panel .form-group input {
-  /* Réinitialisation agressive du style de boîte */
+
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   background-color: transparent !important;
   
-  /* Application du style de ligne */
+
   border-bottom: 1px solid var(--border-color) !important;
   
   /* Autres propriétés */
@@ -126,7 +126,7 @@
   outline: none !important;
   border-bottom-color: var(--orange-primary) !important;
 }
-/* ----- FIN DE LA CORRECTION AVEC !important ----- */
+
 
 
 .form-terms {
@@ -223,7 +223,7 @@
 
 /* Style pour les champs valides (optionnel) */
 .form-group input:valid:not(:placeholder-shown) {
-  border-bottom-color: #10b981; /* Vert pour les champs valides */
+  border-bottom-color: #10b981; 
 }
 
 /* Style pour les messages d'erreur des termes */

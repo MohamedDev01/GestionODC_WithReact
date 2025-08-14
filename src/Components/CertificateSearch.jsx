@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../Styles/CertificateSearch.css'; // Le fichier CSS a aussi été modifié
+import '../Styles/CertificateSearch.css'; 
 
 const CertificateSearch = () => {
   const [name, setName] = useState('');
@@ -8,8 +8,7 @@ const CertificateSearch = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logique de recherche à implémenter ici
-    // Par exemple, appeler une API avec les données
+   
     console.log({
       name,
       date,
@@ -20,8 +19,10 @@ const CertificateSearch = () => {
 
   return (
     <div className="search-page-container">
+       
       <div className="certificate-card">
         <form onSubmit={handleSubmit} className="certificate-form">
+          <h1 className="login-title">RECHERCHER MAINTENANT !</h1>
           {/* Champ Nom */}
           <div className="input-group">
             <input
@@ -41,8 +42,8 @@ const CertificateSearch = () => {
               placeholder="jj/mm/aaaa"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              onFocus={(e) => (e.target.type = 'date')} // Change le type au focus pour le date picker
-              onBlur={(e) => (e.target.type = 'text')}  // Revient au texte si rien n'est sélectionné
+              onFocus={(e) => (e.target.type = 'date')} 
+              onBlur={(e) => (e.target.type = 'text')}  
               className="form-input"
               required
             />
