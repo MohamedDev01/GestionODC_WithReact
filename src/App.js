@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import PageTitle from './Components/PageTitle';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 // Import de vos pages
 import Home from './Complete-Page/Home';
@@ -40,6 +41,7 @@ function App() {
       <div className="App">
         <PageTitle />
         <Navbar />
+<<<<<<< HEAD
         <div className="page-content">
           <Routes>
             {/* Routes générales */}
@@ -65,6 +67,28 @@ function App() {
 
           </Routes>
         </div>
+=======
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/register" element={<Connect />} />
+          <Route path="/login" element={<LoginPage />} />
+          
+          {/* Route protégée pour le profil utilisateur */}
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <UserProfilePage />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/mot-de-passe-oublie" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+          <Route path="/hire" element={<Hire />} />
+          <Route path="/learn" element={<Learn />} />
+          <Route path="/learn/courses" element={<CourseCatalog />} />
+          <Route path="/certificat" element={<CertificateSearch />} />
+        </Routes>
+>>>>>>> c92a624 (Version Rabi 14/08/25)
         <Footer />
       </div>
     </Router>
