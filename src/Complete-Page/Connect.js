@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { authService } from '../Services/api';
+import { authService } from '../Services/authService';
 
 import '../Styles/Connect.css';
 import phoneImage from '../Assets/Apps.png';
@@ -11,7 +11,7 @@ const Connect = () => {
     nom: '',
     prenoms: '',
     email: '',
-    numero: '',
+    contact: '',
     password: '',
     confirmPassword: '',
     terms: false
@@ -65,7 +65,7 @@ const Connect = () => {
 
     if (name === 'nom' || name === 'prenoms') val = val.replace(/[^\p{L}\s\-']/gu, '');
     
-    if (name === 'numero') {
+    if (name === 'contact') {
       // Supprimer tout sauf les chiffres
       let digits = val.replace(/[^\d]/g, '');
       // Limiter à 10 chiffres maximum
@@ -81,7 +81,7 @@ const Connect = () => {
     if (name === 'nom') fieldError = validateName(val, 'Nom');
     if (name === 'prenoms') fieldError = validateName(val, 'Prénoms');
     if (name === 'email') fieldError = validateEmail(val);
-    if (name === 'numero') fieldError = validatePhone(val);
+    if (name === 'contact') fieldError = validatePhone(val);
     if (name === 'password' || name === 'confirmPassword') {
       // Get the current values for both password fields
       const currentPassword = name === 'password' ? val : formData.password;
@@ -114,7 +114,7 @@ const Connect = () => {
       nom: validateName(formData.nom, 'Nom'),
       prenoms: validateName(formData.prenoms, 'Prénoms'),
       email: validateEmail(formData.email),
-      numero: validatePhone(formData.numero),
+      contact: validatePhone(formData.contact),
       ...validatePassword(formData.password, formData.confirmPassword),
       terms: formData.terms ? '' : 'Vous devez accepter les conditions'
     };
@@ -127,7 +127,7 @@ const Connect = () => {
           nom: formData.nom.trim(),
           prenoms: formData.prenoms.trim(),
           email: formData.email.trim().toLowerCase(),
-          contact: formData.numero,
+          contact: formData.contact,
           motDePasse: formData.password
         };
 
@@ -178,26 +178,28 @@ const Connect = () => {
 
           <form className="connect-form" onSubmit={handleSubmit}>
             <div className="form-grid">
-              {['nom', 'prenoms', 'email', 'numero', 'password', 'confirmPassword'].map((field, idx) => (
+              {['nom', 'prenoms', 'email', 'contact', 'password', 'confirmPassword'].map((field, idx) => (
                 <div className="form-group" key={idx}>
                   <label htmlFor={field}>
                     {field === 'confirmPassword'
                       ? 'Confirmer mot de passe'
+                      : field === 'contact'
+                      ? 'Numéro'
                       : field.charAt(0).toUpperCase() + field.slice(1)}
                   </label>
-                  {field === 'numero' ? (
+                  {field === 'contact' ? (
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <span className="phone-prefix">+225</span>
                       <input
                         type="tel"
-                        id="numero"
-                        name="numero"
-                        value={formData.numero.replace('+225', '')}
+                        id="contact"
+                        name="contact"
+                        value={formData.contact.replace('+225', '')}
                         onChange={handleInputChange}
                         maxLength={10}
                         pattern="[0-9]{10}"
                         placeholder="XXXXXXXXXX"
-                        className={errors.numero ? 'error' : ''}
+                        className={errors.contact ? 'error' : ''}
                         style={{ flex: 1 }}
                         disabled={isLoading}
                       />
