@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 // src/Components/LoginPage.jsx
 
->>>>>>> c92a624 (Version Rabi 14/08/25)
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -22,16 +19,16 @@ const LoginPage = () => {
 
   const validateForm = () => {
     if (!credentials.identifiant.trim()) {
-      toast.error("L'identifiantest requis");
+      toast.error("L'identifiant est requis");
       return false;
     }
     if (!credentials.motDePasse) {
       toast.error('Le mot de passe est requis');
       return false;
     }
-    const identifiantRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!identifiantRegex.test(credentials.identifiant)) {
-      toast.error("Format d'identifiantinvalide");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(credentials.identifiant)) {
+      toast.error("Format d'email invalide");
       return false;
     }
     return true;
@@ -53,15 +50,15 @@ const LoginPage = () => {
       const response = await authService.login(loginData);
       console.log('Réponse API:', response);
 
-      const { token, user } = response.data;
+      const { token, user } = response.data || response;
 
       toast.success('Connexion réussie ! Bienvenue !');
 
-      // Stockage du token et info utilisateur
+      // Stockage du token et info utilisateur - utiliser authToken pour cohérence
       if (rememberMe) {
-        localStorage.setItem('token', token);
+        localStorage.setItem('authToken', token);
       } else {
-        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('authToken', token);
       }
       localStorage.setItem('user', JSON.stringify(user));
 
@@ -70,7 +67,7 @@ const LoginPage = () => {
     } catch (error) {
       console.error('Erreur lors de la connexion:', error);
       const status = error.response?.status;
-      if (status === 401) toast.error('identifiant ou mot de passe incorrect');
+      if (status === 401) toast.error('Email ou mot de passe incorrect');
       else if (status === 404) toast.error('Compte non trouvé');
       else if (status === 403) toast.error('Compte désactivé');
       else if (status === 500) toast.error('Erreur serveur');
@@ -88,13 +85,14 @@ const LoginPage = () => {
           <div className="input-with-icon">
             <FaUser className="input-icon" />
             <input 
-              type="identifiant"
+              type="email"
               name="identifiant"
-              placeholder="identifiant"
+              placeholder="Email"
               value={credentials.identifiant}
               onChange={handleChange}
               required
               disabled={isLoading}
+              aria-label="Adresse email"
             />
           </div>
 
@@ -108,6 +106,7 @@ const LoginPage = () => {
               onChange={handleChange}
               required
               disabled={isLoading}
+              aria-label="Mot de passe"
             />
           </div>
 

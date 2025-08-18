@@ -14,7 +14,7 @@ const api = axios.create({
 // Intercepteur requêtes
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -37,8 +37,9 @@ api.interceptors.response.use(
     console.error('[API] Erreur réponse:', error.response?.data || error.message);
     if (error.response?.status === 401) {
       localStorage.removeItem('authToken');
+      sessionStorage.removeItem('authToken');
       localStorage.removeItem('user');
-      window.location.href = '/connexion';
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }
@@ -109,7 +110,7 @@ export const authService = {
     }
   },
 
-  isAuthenticated: () => !!localStorage.getItem('authToken'),
+  isAuthenticated: () => !!(localStorage.getItem('authToken') || sessionStorage.getItem('authToken')),
 
   getCurrentUser: () => {
     const user = localStorage.getItem('user');
