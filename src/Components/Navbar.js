@@ -23,7 +23,19 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      zIndex: 9999,
+      backgroundColor: '#000',
+      padding: '10px 20px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      height: '100px'
+    }}>
       <div className="logo">
         <Link to="/home">
           {/* J'ai remplacé `require` par la variable importée, c'est plus moderne */}

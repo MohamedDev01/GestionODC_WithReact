@@ -41,6 +41,7 @@ function App() {
       <div className="App">
         <PageTitle />
         <Navbar />
+        <div className="navbar-spacer" style={{ height: '100px' }}></div>
         <div className="page-content">
           <Routes>
             {/* Routes générales */}

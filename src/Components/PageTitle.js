@@ -13,6 +13,7 @@ const PageTitle = () => {
       '/hire': 'Recrutement',
       '/certificat': 'Certificats',
       '/learn': 'Apprentissage',
+      '/register': 'Connexion',
     };
 
     // Obtenir le titre pour la route actuelle
