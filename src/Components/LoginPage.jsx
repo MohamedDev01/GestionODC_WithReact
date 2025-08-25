@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { FaUser, FaLock, FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import { authService } from '../Services/api';
 import '../Styles/LoginPage.css';
 
@@ -74,27 +75,33 @@ const LoginPage = () => {
       <div className="login-card">
         <h1 className="login-title">SE CONNECTER MAINTENANT !</h1>
         <form onSubmit={handleSubmit}>
-          <input 
-            type="email"
-            name="identifiant"
-            placeholder="Email"
-            value={credentials.identifiant}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-            aria-label="Adresse email"
-          />
+          <div className="input-with-icon">
+            <FaUser className="input-icon" />
+            <input 
+              type="email"
+              name="identifiant"
+              placeholder="Email"
+              value={credentials.identifiant}
+              onChange={handleChange}
+              required
+              disabled={isLoading}
+              aria-label="Adresse email"
+            />
+          </div>
 
-          <input 
-            type="password"
-            name="motDePasse"
-            placeholder="Entrez votre mot de passe"
-            value={credentials.motDePasse}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-            aria-label="Mot de passe"
-          />
+          <div className="input-with-icon">
+            <FaLock className="input-icon" />
+            <input 
+              type="password"
+              name="motDePasse"
+              placeholder="Entrez votre mot de passe"
+              value={credentials.motDePasse}
+              onChange={handleChange}
+              required
+              disabled={isLoading}
+              aria-label="Mot de passe"
+            />
+          </div>
 
           <button type="submit" className="login-button" disabled={isLoading}>
             {isLoading ? 'Connexion...' : 'Se connecter'}
