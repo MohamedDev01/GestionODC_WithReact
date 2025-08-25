@@ -3,20 +3,20 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../Styles/Navbar.css';
-// Note: `require` peut poser problème avec Create React App / Vite. L'import est plus sûr.
-import LogoNav from '../Assets/LogoNav.png'; 
+import LogoNav from '../Assets/LogoNav.png';
+import { authService } from '../Services/authService';
 
 const Navbar = () => {
   const [menuActive, setMenuActive] = useState(false);
   const location = useLocation();
-
+  const isAuthenticated = authService.isAuthenticated();
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
 
   const menuItems = [
     { label: "Accueil", path: "/home" },
-    { label: "S'inscrire", path: "/register" },
+    ...(isAuthenticated ? [] : [{ label: "S'inscrire", path: "/register" }]),
     { label: "Postuler", path: "/hire" },
     { label: "Certificat", path: "/certificat" },
     { label: "Apprendre", path: "/learn" },
@@ -66,6 +66,13 @@ const Navbar = () => {
             </Link>
           </li>
         ))}
+        {isAuthenticated && (
+          <li>
+            <span className="menu-item" style={{ color: '#00ff00', cursor: 'default' }}>
+              Connecté(e)
+            </span>
+          </li>
+        )}
       </ul>
     </nav>
   );

@@ -1,0 +1,86 @@
+/* AnimatedSection.css */
+.animated-section {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.animated-content {
+  transition: all 0.6s ease-out;
+}
+
+/* FadeIn Animation */
+.fadeIn-enter {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.fadeIn-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Zoom Animation */
+.zoom-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.zoom-enter-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* SlideUp Animation */
+.slideUp-enter {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.slideUp-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* SlideInLeft Animation */
+.slideInLeft-enter {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.slideInLeft-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger animation for cards */
+.stagger-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.stagger-item.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive animations */
+@media (max-width: 768px) {
+  .animated-section {
+    transform: translateY(10px);
+  }
+  
+  .fadeIn-enter {
+    transform: translateY(20px);
+  }
+  
+  .zoom-enter {
+    transform: scale(0.95);
+  }
+}

@@ -15,12 +15,12 @@ import Home from './Complete-Page/Home';
 import Connect from './Complete-Page/Connect';
 import LoginPage from './Components/LoginPage';     
 import ForgotPasswordPage from './Components/ForgotPasswordPage';
-import ResetPasswordPage from './Complete-Page/ResetPasswordPage'; 
+import ResetPasswordPage from './Complete-Page/ResetPasswordPage.jsx';
 import Hire from './Complete-Page/Hire';
 import Learn from './Complete-Page/Learn';
 import CourseCatalog from './Components/CourseCatalog';
 import CertificateSearch from './Components/CertificateSearch'; 
-import UserProfilePage from './Complete-Page/UserProfilePage';
+import UserProfilePage from './Complete-Page/UserProfilePage.jsx';
 
 function App() {
   return (

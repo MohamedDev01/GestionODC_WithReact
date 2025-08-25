@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 180px); /* Ajustez si la hauteur nav+footer est différente */
+  min-height: calc(100vh - 180px);
   background-color: #ffffff;
 }
 
@@ -12,14 +12,14 @@
   width: 100%;
   max-width: 480px;
   padding: 3rem;
-  background-color: #f8f9fa; /* Fond gris très clair */
+  background-color: #f8f9fa;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   text-align: center;
 }
 
 .login-title {
-  color: #f97316; /* Orange */
+  color: #f97316;
   font-weight: 800;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -31,29 +31,16 @@
   margin-bottom: 1.5rem;
 }
 
-.input-icon {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #f97316; /* Fond de l'icône en orange */
-  color: white; /* Icône en blanc */
-  padding: 0.5rem;
-  border-radius: 8px; /* Bords arrondis pour l'icône */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .input-with-icon input {
   width: 100%;
-  padding: 1rem 1rem 1rem 4.5rem; /* Espace à gauche pour l'icône */
-  border: 1px solid #f97316; /* Bordure orange */
+  padding: 1rem;
+  border: 1px solid #f97316;
   border-radius: 12px;
   background-color: white;
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   transition: box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
 .input-with-icon input::placeholder {
@@ -62,7 +49,7 @@
 
 .input-with-icon input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3); /* Effet de "glow" orange */
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
 }
 
 .login-button {
@@ -81,7 +68,7 @@
 }
 
 .login-button:hover {
-  background-color: #ea580c; /* Orange plus foncé au survol */
+  background-color: #ea580c;
 }
 
 .login-options {
@@ -120,8 +107,8 @@
 }
 
 .confirmation-message {
-  color: #155724; /* Vert foncé */
-  background-color: #d4edda; /* Vert clair */
+  color: #155724;
+  background-color: #d4edda;
   border: 1px solid #c3e6cb;
   border-radius: 8px;
   padding: 1rem;
@@ -131,8 +118,8 @@
 }
 
 .error-message {
-  color: #721c24; /* Rouge foncé */
-  background-color: #f8d7da; /* Rouge clair */
+  color: #721c24;
+  background-color: #f8d7da;
   border: 1px solid #f5c6cb;
   border-radius: 8px;
   padding: 1rem;
@@ -145,16 +132,14 @@
   justify-content: center;
 }
 
-
-
 .register-prompt {
   margin-top: 2rem;
   font-size: 0.9rem;
-  color: #4b5563; /* Couleur de texte secondaire */
+  color: #4b5563;
 }
 
 .register-prompt a {
-  color: #f97316; /* Couleur orange, comme le thème */
+  color: #f97316;
   font-weight: 600;
   text-decoration: none;
 }

@@ -12,7 +12,6 @@ import IO from '../Assets/IO.png';
 import IoT from '../Assets/IoT-devices.png';
 import Equipement from '../Assets/Icons/Equipement.png';
 import Environnement from '../Assets/Icons/Environnement.png';
-import ExpertIcon from '../Assets/Icons/Expert.png';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -218,7 +217,7 @@ const Home = () => {
 
             <div className="Atout-3">
               <div className="icon-circles">
-                <img src={ExpertIcon} alt="Expert" />
+                <img src={Expert} alt="Expert" />
               </div>
               <h4>Expert</h4>
               <p>

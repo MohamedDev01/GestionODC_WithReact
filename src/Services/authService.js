@@ -1,4 +1,5 @@
 import api from './api';
+import { tokenService } from './tokenService';
 
 const SIMULATION_MODE = false;
 
@@ -28,7 +29,7 @@ export const authService = {
   },
 
   // Connexion
-  login: async (credentials) => {
+  login: async (credentials, rememberMe = false) => {
     const payload = {
       identifiant: credentials.identifiant,
       motDePasse: credentials.motDePasse,
@@ -39,15 +40,24 @@ export const authService = {
       await new Promise(resolve => setTimeout(resolve, 800));
       const mockToken = 'mock_jwt_token_' + Date.now();
       const mockUser = { id: 1, nom: 'Utilisateur', prenoms: 'Test', email: payload.identifiant };
-      localStorage.setItem('authToken', mockToken);
-      localStorage.setItem('user', JSON.stringify(mockUser));
+      
+      tokenService.setToken(mockToken, rememberMe);
+      tokenService.setUser(mockUser, rememberMe);
+      
       return { token: mockToken, user: mockUser, message: 'Connexion réussie' };
     }
 
     try {
       const response = await api.post('/auth/connexion', payload);
-      if (response.data.token) localStorage.setItem('authToken', response.data.token);
-      if (response.data.user) localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+      if (response.data.token) {
+        tokenService.setToken(response.data.token, rememberMe);
+      }
+      
+      if (response.data.user) {
+        tokenService.setUser(response.data.user, rememberMe);
+      }
+      
       return response.data;
     } catch (error) {
       throw error;
@@ -60,16 +70,27 @@ export const authService = {
     } catch (error) {
       console.error('Erreur déconnexion:', error);
     } finally {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('user');
+      tokenService.clearToken();
+      tokenService.clearUser();
     }
   },
 
-  isAuthenticated: () => !!localStorage.getItem('authToken'),
+  isAuthenticated: () => {
+    return tokenService.hasToken() && tokenService.isValidToken(tokenService.getToken());
+  },
 
   getCurrentUser: () => {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    return tokenService.getUser();
+  },
+
+  // Check if user is authenticated on app load
+  checkAuthStatus: async () => {
+    return await tokenService.checkAutoLogin();
+  },
+
+  // Get auth token for API calls
+  getAuthToken: () => {
+    return tokenService.getToken();
   }
 };
 

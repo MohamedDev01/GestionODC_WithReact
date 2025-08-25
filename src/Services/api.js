@@ -55,7 +55,7 @@ export const authService = {
       prenoms: userData.prenoms,
       email: userData.email,
       contact: userData.contact,
-      motDePasse: userData.motDePasse, // corrigé
+      motDePasse: userData.motDePasse,
     };
 
     if (SIMULATION_MODE) {
@@ -76,7 +76,7 @@ export const authService = {
   login: async (credentials) => {
     const payload = {
       identifiant: credentials.identifiant,
-      motDePasse: credentials.motDePasse, // cohérent avec register
+      motDePasse: credentials.motDePasse,
     };
 
     if (SIMULATION_MODE) {
@@ -115,6 +115,97 @@ export const authService = {
   getCurrentUser: () => {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
+  }
+};
+
+// Certificate Service
+export const certificateService = {
+  // Search certificates
+  searchCertificates: async (searchParams) => {
+    const params = new URLSearchParams({
+      nom: searchParams.nom || '',
+      date: searchParams.date || '',
+      email: searchParams.email || '',
+    });
+
+    if (SIMULATION_MODE) {
+      console.log('Mode simulation - Recherche certificats:', searchParams);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      return {
+        success: true,
+        data: [
+          {
+            id: 1,
+            nom: searchParams.nom,
+            date: searchParams.date,
+            email: searchParams.email,
+            numeroCertificat: 'CERT-2024-001',
+            type: 'Attestation de participation',
+            statut: 'Validé',
+            dateEmission: '2024-01-15',
+            url: '/certificates/cert-2024-001.pdf'
+          }
+        ]
+      };
+    }
+
+    try {
+      const response = await api.get(`/certificats/recherche?${params}`);
+      return response.data;
+    } catch (error) {
+      console.error('Search error:', error);
+      throw new Error(error.response?.data?.message || 'Erreur lors de la recherche');
+    }
+  },
+
+  // Download certificate
+  downloadCertificate: async (certificateId) => {
+    if (SIMULATION_MODE) {
+      console.log('Mode simulation - Téléchargement certificat:', certificateId);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      return {
+        success: true,
+        downloadUrl: `/mock-certificates/${certificateId}.pdf`
+      };
+    }
+
+    try {
+      const response = await api.get(`/certificats/${certificateId}/telecharger`, {
+        responseType: 'blob'
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get certificate details
+  getCertificateDetails: async (certificateId) => {
+    if (SIMULATION_MODE) {
+      console.log('Mode simulation - Détails certificat:', certificateId);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      return {
+        success: true,
+        data: {
+          id: certificateId,
+          nom: 'Jean Dupont',
+          date: '2024-01-15',
+          email: 'jean.dupont@example.com',
+          numeroCertificat: certificateId,
+          type: 'Attestation de participation',
+          statut: 'Validé',
+          dateEmission: '2024-01-15',
+          url: `/certificates/${certificateId}.pdf`
+        }
+      };
+    }
+
+    try {
+      const response = await api.get(`/certificats/${certificateId}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 };
 
