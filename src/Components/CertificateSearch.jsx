@@ -6,6 +6,7 @@ const CertificateSearch = () => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [email, setEmail] = useState('');
+  const [certificateNumber, setCertificateNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [results, setResults] = useState([]);
@@ -35,23 +36,13 @@ const CertificateSearch = () => {
     setShowResults(false);
 
     // Validation
-    if (!name.trim()) {
-      setError('Veuillez entrer votre nom');
+    if (!name.trim() && !certificateNumber.trim()) {
+      setError('Veuillez entrer votre nom ou le numéro de certificat');
       return;
     }
 
-    if (!email.trim()) {
-      setError('Veuillez entrer votre email');
-      return;
-    }
-
-    if (!validateEmail(email)) {
+    if (email.trim() && !validateEmail(email)) {
       setError('Veuillez entrer une adresse email valide');
-      return;
-    }
-
-    if (!date) {
-      setError('Veuillez sélectionner une date');
       return;
     }
 
@@ -61,7 +52,8 @@ const CertificateSearch = () => {
       const searchParams = {
         nom: name.trim(),
         date: date,
-        email: email.trim()
+        email: email.trim(),
+        numeroCertificat: certificateNumber.trim()
       };
 
       const response = await certificateService.searchCertificates(searchParams);
@@ -110,6 +102,7 @@ const CertificateSearch = () => {
     setName('');
     setDate('');
     setEmail('');
+    setCertificateNumber('');
   };
 
   return (
@@ -136,7 +129,6 @@ const CertificateSearch = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="form-input"
-                required
                 disabled={loading}
                 maxLength="100"
               />
@@ -151,7 +143,6 @@ const CertificateSearch = () => {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 className="form-input"
-                required
                 disabled={loading}
                 max={new Date().toISOString().split('T')[0]}
               />
@@ -167,7 +158,6 @@ const CertificateSearch = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="form-input"
-                required
                 disabled={loading}
                 maxLength="255"
               />
