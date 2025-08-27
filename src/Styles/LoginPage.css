@@ -18,6 +18,24 @@
   text-align: center;
 }
 
+.login-page-container .login-card {
+   background: rgba(255, 255, 255, 0.95);
+   box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+   transition: all 0.3s ease;
+   animation: slideUp 0.6s ease-out;
+
+}
+
+.login-page-container .login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+
+}
+
 .login-title {
   color: #f97316;
   font-weight: 800;

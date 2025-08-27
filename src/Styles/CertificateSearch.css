@@ -3,21 +3,21 @@
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 80px);
-  background: white;
+  background: #f9fafb; /* gris clair pour mieux voir les arrondis */
   padding: 2rem;
   position: relative;
   overflow: hidden;
+  border-radius: 24px; /* arrondit aussi le container */
 }
 
 .search-page-container::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0; /* équivalent de top, right, bottom, left = 0 */
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
   pointer-events: none;
+  border-radius: inherit; /* reprend le radius du parent */
+  z-index: -1;
 }
 
 /* Modern glassmorphism card */
@@ -34,6 +34,12 @@
   max-width: 520px;
   transition: all 0.3s ease;
   animation: slideUp 0.6s ease-out;
+
+  /* Make sure the card and its children sit above the page-level ::before
+    decorative layer. Also give the card a stacking context so z-index works
+    predictably. */
+  position: relative;
+  z-index: 1;
 }
 
 .certificate-card:hover {
@@ -42,8 +48,6 @@
     0 12px 40px rgba(0, 0, 0, 0.15),
     0 4px 12px rgba(0, 0, 0, 0.08);
 }
-
-
 
 /* Le formulaire lui-même */
 .certificate-form {
@@ -58,6 +62,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  /* do not clip children — keep visible if any descendants have shadows or
+    radii that extend outside the group */
+  overflow: visible;
 }
 
 .input-label {
@@ -69,9 +76,10 @@
 /* Style des champs de saisie avec icônes */
 .form-input {
   width: 100%;
-  padding: 1rem 1rem 1rem 45px; /* Padding ajusté pour l'icône */
-  border: 2px solid #ff8c00; /* Bordure orange */
-  border-radius: 12px;
+  padding: 1rem 1rem 1rem 45px; 
+  border: none;
+  box-shadow: inset 0 0 0 2px #ff8c00;
+  border-radius: 16px !important;
   font-size: 1rem;
   color: #333;
   transition: box-shadow 0.3s ease;
@@ -79,6 +87,33 @@
   background-repeat: no-repeat;
   background-position: 15px center;
   background-size: 20px 20px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  position: relative;
+  z-index: 2; 
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+/* Ensure browser-specific inner controls don't produce square corners */
+input::-webkit-calendar-picker-indicator,
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button,
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: inherit;
+  /* prevent these native controls from drawing outside the rounded corner */
+  overflow: hidden;
+}
+
+/* Safety: if a browser uses different pseudo selectors, also force radii */
+input::part(calendar-picker-indicator) {
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
 }
 
 /* Icônes pour chaque input */
@@ -96,7 +131,7 @@
 
 .form-input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.3); /* Lueur orange au focus */
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
 }
 
 .form-input::placeholder {
@@ -200,7 +235,7 @@
 
 .certificate-item {
   background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
+  border: 0.5px solid #e5e7eb;
   border-radius: 12px;
   padding: 1.5rem;
   text-align: left;
@@ -293,5 +328,15 @@
   
   .login-title {
     font-size: 1.3rem;
+  }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
