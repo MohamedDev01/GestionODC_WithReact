@@ -136,10 +136,21 @@ const Connect = () => {
         const response = await authService.register(userData);
         console.log('Réponse API:', response);
 
-        toast.success('Inscription réussie ! Vous pouvez maintenant vous connecter.');
-        
-        // Rediriger vers la page de connexion après inscription réussie
-        setTimeout(() => navigate('/login'), 2000);
+        toast.success('Inscription réussie ! Connexion en cours...');
+
+        // Tenter une connexion automatique après inscription puis rediriger vers /home.
+        try {
+          const loginPayload = { identifiant: userData.email, motDePasse: userData.motDePasse };
+          const loginResponse = await authService.login(loginPayload, true);
+          console.log('Auto-login response:', loginResponse);
+          toast.success('Connexion automatique réussie. Bienvenue !');
+          navigate('/home');
+        } catch (loginErr) {
+          console.error('Auto-login failed after registration:', loginErr);
+          // Si la connexion automatique échoue, rediriger vers la page de connexion
+          toast.success("Inscription réussie ! Veuillez vous connecter.");
+          navigate('/login');
+        }
 
       } catch (error) {
         console.error('Erreur lors de l\'inscription:', error);

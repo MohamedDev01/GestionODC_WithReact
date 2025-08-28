@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://192.168.252.227:8080/api';
+const API_BASE_URL = 'http://192.168.252.2:8080/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -45,7 +45,7 @@ api.interceptors.response.use(
   }
 );
 
-const SIMULATION_MODE = false;
+const SIMULATION_MODE = true;
 
 export const authService = {
   // Inscription
@@ -110,7 +110,32 @@ export const authService = {
     }
   },
 
-  isAuthenticated: () => !!(localStorage.getItem('authToken') || sessionStorage.getItem('authToken')),
+  isAuthenticated: () => {
+    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    if (!token) return false;
+    
+    // In simulation mode, accept any token that starts with 'mock_jwt_token_'
+    if (SIMULATION_MODE && typeof token === 'string' && token.startsWith('mock_jwt_token_')) {
+      return true;
+    }
+    
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) return false;
+      
+      // Decode payload
+      const payload = JSON.parse(atob(parts[1]));
+      
+      // Check expiration
+      if (payload.exp && Date.now() >= payload.exp * 1000) {
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      return false;
+    }
+  },
 
   getCurrentUser: () => {
     const user = localStorage.getItem('user');

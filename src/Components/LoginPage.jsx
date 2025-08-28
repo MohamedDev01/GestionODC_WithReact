@@ -49,7 +49,7 @@ const LoginPage = () => {
       console.log("Réponse API:", response);
 
       toast.success("Connexion réussie ! Bienvenue !");
-      setTimeout(() => navigate("/home"), 1000);
+      navigate("/home");
     } catch (error) {
       console.error("Erreur lors de la connexion:", error);
       const status = error.response?.status;

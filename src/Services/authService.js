@@ -1,7 +1,8 @@
 import api from './api';
 import { tokenService } from './tokenService';
 
-const SIMULATION_MODE = false;
+// Activer le mode simulation pour tester l'inscription/connexion sans backend
+const SIMULATION_MODE = true;
 
 export const authService = {
   // Inscription
