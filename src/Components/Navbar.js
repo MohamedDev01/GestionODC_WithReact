@@ -1,4 +1,4 @@
-// src/Components/Navbar.js (VERSION CORRIGÉE)
+
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -68,9 +68,12 @@ const Navbar = () => {
         ))}
         {isAuthenticated && (
           <li>
-            <span className="menu-item" style={{ color: '#00ff00', cursor: 'default' }}>
-              Connecté(e)
-            </span>
+            <Link
+              to="/profile"
+              className={`menu-item ${location.pathname.toLowerCase() === '/profile' ? 'active' : ''}`}
+            >
+              Mon Profil
+            </Link>
           </li>
         )}
       </ul>
