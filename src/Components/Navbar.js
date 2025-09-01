@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../Styles/Navbar.css';
 import LogoNav from '../Assets/LogoNav.png';
-import { authService } from '../Services/authService';
+import { useAuth } from '../Contexts/AuthContext';
 
 const Navbar = () => {
   const [menuActive, setMenuActive] = useState(false);
   const location = useLocation();
-  const isAuthenticated = authService.isAuthenticated();
+  const { isAuthenticated, logout } = useAuth();
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };

@@ -27,7 +27,7 @@ const ForgotPasswordPage = () => {
           <div className="input-with-icon">
             <FaEnvelope className="input-icon" />
             <input 
-              type="email" 
+              type="email"  
               name="email" 
               placeholder="Entrez votre email" 
               value={email}

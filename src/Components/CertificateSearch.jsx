@@ -6,24 +6,28 @@ const CertificateSearch = () => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [email, setEmail] = useState('');
-  const [certificateNumber, setCertificateNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
-  // Validation functions
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const handleNameChange = (e) => {
+    const value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s'-]/g, '');
+    setName(value);
   };
 
+  const handleEmailChange = (e) => {
+    const value = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '');
+    setEmail(value);
+  };
 
   const formatDateForDisplay = (dateString) => {
     if (!dateString) return '';
     try {
-      const date = new Date(dateString);
-      return isNaN(date.getTime()) ? 'Date invalide' : date.toLocaleDateString('fr-FR');
+      const dateObj = new Date(dateString);
+      return isNaN(dateObj.getTime()) ? 'Date invalide' : dateObj.toLocaleDateString('fr-FR');
     } catch {
       return 'Date invalide';
     }
@@ -35,63 +39,59 @@ const CertificateSearch = () => {
     setResults([]);
     setShowResults(false);
 
-    // Validation
-    if (!name.trim() && !certificateNumber.trim()) {
-      setError('Veuillez entrer votre nom ou le numéro de certificat');
+    if (!name.trim()) {
+      setError('Veuillez entrer votre nom');
       return;
     }
-
-    if (email.trim() && !validateEmail(email)) {
+    if (!date) {
+      setError('Veuillez sélectionner une date');
+      return;
+    }
+    if (!email.trim()) {
+      setError('Veuillez entrer votre adresse email');
+      return;
+    }
+    if (!validateEmail(email)) {
       setError('Veuillez entrer une adresse email valide');
       return;
     }
 
     setLoading(true);
-
     try {
-      const searchParams = {
+      const response = await certificateService.searchCertificates({
         nom: name.trim(),
-        date: date,
-        email: email.trim(),
-        numeroCertificat: certificateNumber.trim()
-      };
-
-      const response = await certificateService.searchCertificates(searchParams);
-      
-      if (response && response.data && Array.isArray(response.data) && response.data.length > 0) {
+        date,
+        email: email.trim()
+      });
+      if (response?.data?.length > 0) {
         setResults(response.data);
         setShowResults(true);
       } else {
-        setResults([]);
         setError('Aucun certificat trouvé avec ces critères');
       }
     } catch (err) {
-      console.error('Erreur lors de la recherche:', err);
-      setError(err.response?.data?.message || 'Erreur lors de la recherche. Veuillez réessayer.');
+      console.error(err);
+      setError(err.response?.data?.message || 'Erreur lors de la recherche');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDownload = async (certificateId) => {
+  const handleDownload = async (id) => {
     try {
-      const response = await certificateService.downloadCertificate(certificateId);
-      if (response && response.downloadUrl) {
-        // Create download link
+      const response = await certificateService.downloadCertificate(id);
+      if (response?.downloadUrl) {
         const link = document.createElement('a');
         link.href = response.downloadUrl;
-        link.download = `certificat-${certificateId}.pdf`;
+        link.download = `certificat-${id}.pdf`;
         link.target = '_blank';
-        link.rel = 'noopener noreferrer';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-      } else {
-        setError('Impossible de télécharger le certificat');
-      }
+      } else setError('Impossible de télécharger le certificat');
     } catch (err) {
-      console.error('Erreur lors du téléchargement:', err);
-      setError(err.response?.data?.message || 'Erreur lors du téléchargement du certificat');
+      console.error(err);
+      setError('Erreur lors du téléchargement');
     }
   };
 
@@ -102,7 +102,6 @@ const CertificateSearch = () => {
     setName('');
     setDate('');
     setEmail('');
-    setCertificateNumber('');
   };
 
   return (
@@ -111,7 +110,7 @@ const CertificateSearch = () => {
         {!showResults ? (
           <form onSubmit={handleSubmit} className="certificate-form">
             <h1 className="login-title">RECHERCHER MAINTENANT !</h1>
-            
+
             {error && (
               <div className="error-message">
                 <span className="error-icon">⚠️</span>
@@ -119,26 +118,34 @@ const CertificateSearch = () => {
               </div>
             )}
 
-            {/* Champ Nom */}
+            {/* Nom */}
             <div className="input-group">
-              <label htmlFor="name" className="input-label">Nom complet</label>
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6600" strokeWidth="2">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM4 20v-2a4 4 0 014-4h8a4 4 0 014 4v2"/>
+                </svg>
+              </span>
               <input
-                id="name"
                 type="text"
                 placeholder="Entrez votre nom complet"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleNameChange}
                 className="form-input"
                 disabled={loading}
-                maxLength="100"
               />
             </div>
 
-            {/* Champ Date */}
+            {/* Date */}
             <div className="input-group">
-              <label htmlFor="date" className="input-label">Date de naissance</label>
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6600" strokeWidth="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </span>
               <input
-                id="date"
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
@@ -148,71 +155,48 @@ const CertificateSearch = () => {
               />
             </div>
 
-            {/* Champ Email */}
+            {/* Email */}
             <div className="input-group">
-              <label htmlFor="email" className="input-label">Email</label>
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff6600" strokeWidth="2">
+                  <path d="M4 4h16v16H4z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </span>
               <input
-                id="email"
                 type="email"
                 placeholder="Entrez votre email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
                 className="form-input"
                 disabled={loading}
-                maxLength="255"
               />
             </div>
 
-            {/* Bouton de soumission */}
-            <button type="submit" className="submit-btn" disabled={loading}>
-              {loading ? (
-                <>
-                  <span className="loading-spinner"></span>
-                  Recherche en cours...
-                </>
-              ) : (
-                'Rechercher'
-              )}
+            <button type="submit" className="submit-btn" disabled={loading || !name.trim() || !date || !email.trim() || !validateEmail(email)}>
+              {loading ? 'Recherche en cours...' : 'Rechercher'}
             </button>
           </form>
         ) : (
           <div className="results-container">
             <h2 className="results-title">Résultats de la recherche</h2>
-            
             {results.length > 0 ? (
               <div className="results-list">
-                {results.map((certificate) => (
-                  <div key={certificate.id} className="certificate-item">
+                {results.map((cert) => (
+                  <div key={cert.id} className="certificate-item">
                     <div className="certificate-info">
-                      <h3>{certificate.type}</h3>
-                      <p><strong>Nom:</strong> {certificate.nom}</p>
-                      <p><strong>Email:</strong> {certificate.email}</p>
-                      <p><strong>Date:</strong> {formatDateForDisplay(certificate.date)}</p>
-                      <p><strong>Numéro:</strong> {certificate.numeroCertificat}</p>
-                      <p><strong>Statut:</strong> 
-                        <span className={`status ${certificate.statut?.toLowerCase() || 'unknown'}`}>
-                          {certificate.statut || 'Inconnu'}
-                        </span>
-                      </p>
+                      <h3>{cert.type}</h3>
+                      <p><strong>Nom:</strong> {cert.nom}</p>
+                      <p><strong>Email:</strong> {cert.email}</p>
+                      <p><strong>Date:</strong> {formatDateForDisplay(cert.date)}</p>
+                      <p><strong>Numéro:</strong> {cert.numeroCertificat}</p>
                     </div>
-                    <button 
-                      className="download-btn"
-                      onClick={() => handleDownload(certificate.id)}
-                    >
-                      📥 Télécharger
-                    </button>
+                    <button className="download-btn" onClick={() => handleDownload(cert.id)}>📥 Télécharger</button>
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="no-results">
-                <p>Aucun certificat trouvé avec ces critères.</p>
-              </div>
-            )}
-            
-            <button className="new-search-btn" onClick={handleNewSearch}>
-              Nouvelle recherche
-            </button>
+            ) : <p className="no-results">Aucun certificat trouvé avec ces critères.</p>}
+            <button className="new-search-btn" onClick={handleNewSearch}>Nouvelle recherche</button>
           </div>
         )}
       </div>

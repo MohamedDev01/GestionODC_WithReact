@@ -40,11 +40,20 @@ export const authService = {
       console.log('Mode simulation - Connexion:', payload);
       await new Promise(resolve => setTimeout(resolve, 800));
       const mockToken = 'mock_jwt_token_' + Date.now();
-      const mockUser = { id: 1, nom: 'Utilisateur', prenoms: 'Test', email: payload.identifiant };
-      
+
+      // Determine if identifiant is email or phone
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.identifiant);
+      const mockUser = {
+        id: 1,
+        nom: 'Utilisateur',
+        prenoms: 'Test',
+        email: isEmail ? payload.identifiant : 'test@example.com',
+        contact: isEmail ? '0123456789' : payload.identifiant
+      };
+
       tokenService.setToken(mockToken, rememberMe);
       tokenService.setUser(mockUser, rememberMe);
-      
+
       return { token: mockToken, user: mockUser, message: 'Connexion réussie' };
     }
 

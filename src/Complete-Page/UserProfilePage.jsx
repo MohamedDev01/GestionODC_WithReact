@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom'; // Pour la redirection
+import { useAuth } from '../Contexts/AuthContext'; // Import du contexte d'authentification
 import '../Styles/UserProfilePage.css';
 import ConfirmationModal from '../Components/ConfirmationModal'; // Assurez-vous que ce chemin est correct
 
@@ -17,6 +18,7 @@ const skillOptions = [
 
 const UserProfilePage = () => {
   const navigate = useNavigate(); // Hook pour la redirection
+  const { logout } = useAuth(); // Récupération de la fonction de déconnexion
 
   const [profile, setProfile] = useState({
     fullName: '',
@@ -66,10 +68,16 @@ const UserProfilePage = () => {
   };
 
   // Logique pour le modal de confirmation
-  const performLogout = () => {
+  const performLogout = async () => {
     console.log("Déconnexion...");
-    closeModal();
-    navigate('/login'); // Redirige vers la page de connexion
+    try {
+      await logout(); // Appel de la fonction de déconnexion du contexte
+      closeModal();
+      navigate('/login'); // Redirige vers la page de connexion
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error);
+      closeModal();
+    }
   };
 
   const performCloseAccount = () => {

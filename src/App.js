@@ -3,6 +3,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from './Contexts/AuthContext';
 
 // Import de vos composants de structure
 import Navbar from './Components/Navbar';
@@ -24,7 +25,8 @@ import UserProfilePage from './Complete-Page/UserProfilePage.jsx';
 
 function App() {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       <Toaster
         position="top-center"
         toastOptions={{
@@ -73,7 +75,8 @@ function App() {
         </div>
         <Footer />
       </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
