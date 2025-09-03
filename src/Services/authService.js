@@ -1,8 +1,7 @@
 import api from './api';
 import { tokenService } from './tokenService';
 
-// Activer le mode simulation pour tester l'inscription/connexion sans backend
-const SIMULATION_MODE = true;
+// Simulation mode removed - using backend for authentication
 
 export const authService = {
   // Inscription
@@ -14,12 +13,6 @@ export const authService = {
       contact: userData.contact,
       motDePasse: userData.motDePasse,
     };
-
-    if (SIMULATION_MODE) {
-      console.log('Mode simulation - Inscription:', payload);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      return { message: 'Inscription réussie', user: payload };
-    }
 
     try {
       const response = await api.post('/auth/inscription', payload);
@@ -35,27 +28,6 @@ export const authService = {
       identifiant: credentials.identifiant,
       motDePasse: credentials.motDePasse,
     };
-
-    if (SIMULATION_MODE) {
-      console.log('Mode simulation - Connexion:', payload);
-      await new Promise(resolve => setTimeout(resolve, 800));
-      const mockToken = 'mock_jwt_token_' + Date.now();
-
-      // Determine if identifiant is email or phone
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.identifiant);
-      const mockUser = {
-        id: 1,
-        nom: 'Utilisateur',
-        prenoms: 'Test',
-        email: isEmail ? payload.identifiant : 'test@example.com',
-        contact: isEmail ? '0123456789' : payload.identifiant
-      };
-
-      tokenService.setToken(mockToken, rememberMe);
-      tokenService.setUser(mockUser, rememberMe);
-
-      return { token: mockToken, user: mockUser, message: 'Connexion réussie' };
-    }
 
     try {
       const response = await api.post('/auth/connexion', payload);

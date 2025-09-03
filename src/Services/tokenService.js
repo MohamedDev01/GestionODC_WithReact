@@ -59,24 +59,19 @@ class TokenService {
   // Validate token format (basic JWT validation)
   isValidToken(token) {
     if (!token) return false;
-    
-    // In simulation mode, accept any token that starts with 'mock_jwt_token_'
-    if (typeof token === 'string' && token.startsWith('mock_jwt_token_')) {
-      return true;
-    }
-    
+
     try {
       const parts = token.split('.');
       if (parts.length !== 3) return false;
-      
+
       // Decode payload
       const payload = JSON.parse(atob(parts[1]));
-      
+
       // Check expiration
       if (payload.exp && Date.now() >= payload.exp * 1000) {
         return false;
       }
-      
+
       return true;
     } catch (error) {
       return false;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { certificateService } from '../Services/api';
+import { certificateService } from '../Services/certificateService';
 import '../Styles/CertificateSearch.css';
 
 const CertificateSearch = () => {

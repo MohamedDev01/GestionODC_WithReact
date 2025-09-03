@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const menuItems = [
     { label: "Accueil", path: "/home" },
-    ...(isAuthenticated ? [] : [{ label: "S'inscrire", path: "/register" }]),
+    ...(isAuthenticated ? [] : [{ label: "S’inscrire", path: "/register" }]),
     { label: "Postuler", path: "/hire" },
     { label: "Certificat", path: "/certificat" },
     { label: "Apprendre", path: "/learn" },
@@ -67,14 +67,25 @@ const Navbar = () => {
           </li>
         ))}
         {isAuthenticated && (
-          <li>
-            <Link
-              to="/profile"
-              className={`menu-item ${location.pathname.toLowerCase() === '/profile' ? 'active' : ''}`}
-            >
-              Mon Profil
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link
+                to="/profile"
+                className={`menu-item ${location.pathname.toLowerCase() === '/profile' ? 'active' : ''}`}
+              >
+                Mon profil
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={logout}
+                className="menu-item logout-btn"
+                style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}
+              >
+                Déconnexion
+              </button>
+            </li>
+          </>
         )}
       </ul>
     </nav>
