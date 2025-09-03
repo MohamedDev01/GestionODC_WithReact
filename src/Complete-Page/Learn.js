@@ -12,7 +12,7 @@ const Learn = () => {
         <Link to="/learn/courses">
           <button className="btn-moodle">
             ACCEDER AU SITE <br/>
-            E-LEARNING
+           O'SCHOOL
           </button>
         </Link>
       </div>
