@@ -11,7 +11,7 @@ const Learn = () => {
       <div className="container-learning">
         <Link to="/learn/courses">
           <button className="btn-moodle">
-            ACCEDER AU SITE <br/>
+            ACCEDER À<br/>
            O'SCHOOL
           </button>
         </Link>

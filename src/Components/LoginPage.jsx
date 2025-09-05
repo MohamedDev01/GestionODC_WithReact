@@ -140,8 +140,7 @@ const LoginPage = () => {
               onChange={(e) => setCredentials({ ...credentials, motDePasse: e.target.value })}
               required
               disabled={isLoading}
-              aria-label="Mot de passe"
-            />
+              aria-label="Mot de passe"/>
           </div>
 
           <button type="submit" className="login-button" disabled={isLoading}>

@@ -1,5 +1,3 @@
-// src/Complete-Page/UserProfilePage.jsx (VERSION MISE À JOUR)
-
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom'; // Pour la redirection
