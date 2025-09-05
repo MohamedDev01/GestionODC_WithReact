@@ -1,79 +1,71 @@
-import api from './api';
-import { tokenService } from './tokenService';
+import api from "./api";
 
-// Simulation mode removed - using backend for authentication
+const authService = {
+  // Connexion
+  login: async (credentials) => {
+    try {
+      // ⚠️ Le backend attend "identifiant" et "motDePasse"
+      const payload = {
+        identifiant: credentials.identifiant, // email ou contact
+        motDePasse: credentials.motDePasse,
+      };
 
-export const authService = {
+      console.log("[DEBUG] Payload envoyé pour login:", payload);
+
+      const response = await api.post("/auth/connexion", payload);
+      console.log("[DEBUG] Réponse login API:", response.data);
+
+      return response.data;
+    } catch (error) {
+      console.error("[DEBUG] Erreur login API:", error.response?.data || error.message);
+      throw error; // relance pour gestion dans AuthContext
+    }
+  },
+
   // Inscription
   register: async (userData) => {
-    const payload = {
-      nom: userData.nom,
-      prenoms: userData.prenoms,
-      email: userData.email,
-      contact: userData.contact,
-      motDePasse: userData.motDePasse,
-    };
-
     try {
-      const response = await api.post('/auth/inscription', payload);
+      const payload = {
+        nom: userData.nom,
+        prenoms: userData.prenoms,
+        email: userData.email,
+        contact: userData.contact,
+        motDePasse: userData.motDePasse,
+      };
+
+      console.log("[DEBUG] Payload envoyé pour inscription:", payload);
+
+      const response = await api.post("/auth/inscription", payload);
+      console.log("[DEBUG] Réponse inscription API:", response.data);
+
       return response.data;
     } catch (error) {
+      console.error("[DEBUG] Erreur inscription API:", error.response?.data || error.message);
       throw error;
     }
   },
 
-  // Connexion
-  login: async (credentials, rememberMe = false) => {
-    const payload = {
-      identifiant: credentials.identifiant,
-      motDePasse: credentials.motDePasse,
-    };
-
-    try {
-      const response = await api.post('/auth/connexion', payload);
-      
-      if (response.data.token) {
-        tokenService.setToken(response.data.token, rememberMe);
-      }
-      
-      if (response.data.user) {
-        tokenService.setUser(response.data.user, rememberMe);
-      }
-      
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
-
+  // Déconnexion
   logout: async () => {
     try {
-      await api.post('/auth/deconnexion');
-    } catch (error) {
-      console.error('Erreur déconnexion:', error);
+      const refreshToken = localStorage.getItem("refreshToken");
+      if (refreshToken) {
+        await api.post("/auth/deconnexion", { refreshToken });
+      }
+    } catch (err) {
+      console.warn("[DEBUG] Erreur logout (ignorée si non gérée par API):", err.message);
     } finally {
-      tokenService.clearToken();
-      tokenService.clearUser();
+      // Supprime tout localement
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
     }
   },
 
+  // Vérifie si un utilisateur est authentifié
   isAuthenticated: () => {
-    return tokenService.hasToken() && tokenService.isValidToken(tokenService.getToken());
+    return !!localStorage.getItem("token");
   },
-
-  getCurrentUser: () => {
-    return tokenService.getUser();
-  },
-
-  // Check if user is authenticated on app load
-  checkAuthStatus: async () => {
-    return await tokenService.checkAutoLogin();
-  },
-
-  // Get auth token for API calls
-  getAuthToken: () => {
-    return tokenService.getToken();
-  }
 };
 
 export default authService;
