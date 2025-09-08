@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../Services/api";  // <-- utilise ton api configuré
+import axios from "axios";
 import "../Styles/Hire.css";
 
 const Hire = () => {
@@ -10,18 +10,11 @@ const Hire = () => {
   useEffect(() => {
     const fetchProgrammes = async () => {
       try {
-        const response = await api.get("/programmes"); // <-- plus besoin de localhost
-
-        console.log("Réponse API :", response.data);
-
-        const data = Array.isArray(response.data)
-          ? response.data
-          : response.data.content || [];
-
-        setProgrammes(data);
+        const response = await axios.get("http://localhost:8080/api/v1/programmes");
+        setProgrammes(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Erreur lors de la récupération des programmes :", error);
-      } finally {
         setLoading(false);
       }
     };
@@ -42,8 +35,7 @@ const Hire = () => {
           Des compétences d'aujourd'hui <br /> qui ont de l'avenir.
         </h2>
         <p>
-          Faites un grand pas vers votre nouvelle carrière en suivant l'un de nos
-          programmes.
+          Faites un grand pas vers votre nouvelle carrière en suivant l'un de nos programmes.
         </p>
       </div>
 
@@ -73,27 +65,21 @@ const Hire = () => {
                 <div className="DateDuration">
                   <span className="Date">
                     <strong>Date début :</strong>{" "}
-                    {programme.date_debut
-                      ? new Date(programme.date_debut).toLocaleDateString()
-                      : "Non défini"}
+                    {new Date(programme.date_debut).toLocaleDateString()}
                   </span>
                   <span className="Duration">
                     <strong>Date fin :</strong>{" "}
-                    {programme.date_fin
-                      ? new Date(programme.date_fin).toLocaleDateString()
-                      : "Non défini"}
+                    {new Date(programme.date_fin).toLocaleDateString()}
                   </span>
                 </div>
-                {programme.url_formulaire && (
-                  <a
-                    href={programme.url_formulaire}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="apply-btn"
-                  >
-                    Postuler
-                  </a>
-                )}
+                <a
+                  href={programme.url_formulaire}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="apply-btn"
+                >
+                  Postuler
+                </a>
               </div>
             </div>
           ))

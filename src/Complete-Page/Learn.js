@@ -1,20 +1,23 @@
-// src/Complete-Page/Learn.jsx (Corrigé)
+// src/Complete-Page/Learn.jsx (version finale)
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../Styles/Learn.css';
 
 const Learn = () => {
   return (
-   
     <main className="learn-landing-page"> 
       <div className="container-learning">
-        <Link to="/learn/courses">
-          <button className="btn-moodle">
-            ACCEDER À<br/>
-           O'SCHOOL
-          </button>
-        </Link>
+
+        <a 
+          href="https://odalearning.gt.tc" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="btn-moodle"
+        >
+          ACCEDER AU SITE <br/>
+          O'SCHOOL
+        </a>
+
       </div>
     </main>
   );
