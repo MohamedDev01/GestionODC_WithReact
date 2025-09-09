@@ -163,61 +163,132 @@ const Connect = () => {
           </p>
 
           <form className="connect-form" onSubmit={handleSubmit}>
-            {/* Boucle sur les champs */}
-            {['nom','prenoms','email','contact','password','confirmPassword'].map((field, idx) => (
-              <div className="form-group" key={idx}>
-                <label htmlFor={field}>
-                  {field === 'confirmPassword' ? 'Confirmer mot de passe' : field === 'contact' ? 'Numéro' : field.charAt(0).toUpperCase() + field.slice(1)}
-                </label>
+            <div className="form-grid">
+              {/* Nom et Prénoms */}
+              <div className="form-group">
+                <label htmlFor="nom">Nom</label>
+                <input
+                  type="text"
+                  id="nom"
+                  name="nom"
+                  value={formData.nom}
+                  onChange={handleInputChange}
+                  placeholder="Entrez votre nom"
+                  className={errors.nom ? 'error' : ''}
+                  disabled={isLoading}
+                />
+                {errors.nom && <span className="error-message">{errors.nom}</span>}
+              </div>
 
-                {field === 'contact' ? (
-                  <div style={{ display:'flex', alignItems:'center' }}>
-                    <span className="phone-prefix">+225</span>
-                    <input
-                      type="tel"
-                      id="contact"
-                      name="contact"
-                      value={formData.contact.replace('+225','')}
-                      onChange={handleInputChange}
-                      maxLength={10}
-                      pattern="[0-9]{10}"
-                      placeholder="XXXXXXXXXX"
-                      className={errors.contact ? 'error' : ''}
-                      style={{ flex:1 }}
-                      disabled={isLoading}
-                    />
-                  </div>
-                ) : field === 'password' || field === 'confirmPassword' ? (
-                  <div className="password-field">
-                    <input
-                      type={field==='password' ? (showPassword?'text':'password') : (showConfirmPassword?'text':'password')}
-                      id={field}
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleInputChange}
-                      className={errors[field] ? 'error':''}
-                      disabled={isLoading}
-                    />
-                    <button type="button" className="eye-toggle"
-                      onClick={field==='password'?togglePasswordVisibility:toggleConfirmPasswordVisibility}>
-                      {field==='password'? (showPassword?'👁️':'🙈') : (showConfirmPassword?'👁️':'🙈')}
-                    </button>
-                  </div>
-                ) : (
+              <div className="form-group">
+                <label htmlFor="prenoms">Prénoms</label>
+                <input
+                  type="text"
+                  id="prenoms"
+                  name="prenoms"
+                  value={formData.prenoms}
+                  onChange={handleInputChange}
+                  placeholder="Entrez votre prénoms"
+                  className={errors.prenoms ? 'error' : ''}
+                  disabled={isLoading}
+                />
+                {errors.prenoms && <span className="error-message">{errors.prenoms}</span>}
+              </div>
+
+              {/* Email et Numéro */}
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Entrez votre email"
+                  className={errors.email ? 'error' : ''}
+                  disabled={isLoading}
+                />
+                {errors.email && <span className="error-message">{errors.email}</span>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="contact">Numéro</label>
+                <div style={{ display:'flex', alignItems:'center' }}>
+                  <span className="phone-prefix">+225</span>
                   <input
-                    type={field==='email'?'email':'text'}
-                    id={field}
-                    name={field}
-                    value={formData[field]}
+                    type="tel"
+                    id="contact"
+                    name="contact"
+                    value={formData.contact.replace('+225','')}
                     onChange={handleInputChange}
-                    placeholder={`Entrez votre ${field}`}
-                    className={errors[field] ? 'error' : ''}
+                    maxLength={10}
+                    pattern="[0-9]{10}"
+                    placeholder="XXXXXXXXXX"
+                    className={errors.contact ? 'error' : ''}
+                    style={{ flex:1 }}
                     disabled={isLoading}
                   />
-                )}
-                {errors[field] && <span className="error-message">{errors[field]}</span>}
+                </div>
+                {errors.contact && <span className="error-message">{errors.contact}</span>}
               </div>
-            ))}
+
+              {/* Password et Confirmer mot de passe */}
+              <div className="form-group">
+                <label htmlFor="password">Mot de passe</label>
+                <div className="password-field">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className={errors.password ? 'error' : ''}
+                    disabled={isLoading}
+                  />
+                  <button type="button" className="eye-toggle" onClick={togglePasswordVisibility} aria-label="Toggle password visibility">
+                    {showPassword ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.05.168-2.06.48-3.003m1.518-1.518A9.969 9.969 0 0112 5c5.523 0 10 4.477 10 10 0 1.05-.168 2.06-.48 3.003m-1.518 1.518L4.5 4.5" />
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                {errors.password && <span className="error-message">{errors.password}</span>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirmer mot de passe</label>
+                <div className="password-field">
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className={errors.confirmPassword ? 'error' : ''}
+                    disabled={isLoading}
+                  />
+                  <button type="button" className="eye-toggle" onClick={toggleConfirmPasswordVisibility} aria-label="Toggle confirm password visibility">
+                    {showConfirmPassword ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.05.168-2.06.48-3.003m1.518-1.518A9.969 9.969 0 0112 5c5.523 0 10 4.477 10 10 0 1.05-.168 2.06-.48 3.003m-1.518 1.518L4.5 4.5" />
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+              </div>
+            </div>
 
             <div className="form-terms">
               <input type="checkbox" id="terms" name="terms" checked={formData.terms} onChange={handleInputChange} disabled={isLoading} />

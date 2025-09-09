@@ -150,8 +150,8 @@
 .submit-button {
   width: auto;
   display: inline-block;
-  background-color: #000000;
-  color: var(--orange-primary);
+  background-color: var(--orange-primary);
+  color: white;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -164,7 +164,7 @@
 }
 
 .submit-button:hover {
-  background-color: #333333;
+  background-color: #ea580c;
 }
 
 .login-prompt {
