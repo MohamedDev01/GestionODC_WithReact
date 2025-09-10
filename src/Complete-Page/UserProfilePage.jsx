@@ -54,7 +54,7 @@ const UserProfilePage = () => {
     try {
       setIsLoading(true);
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://192.168.252.2:8080/api/v1/utilisateurs/${user.id}`, {
+      const response = await fetch(`http://oda.bot.nu:8080/api/v1/utilisateurs/${user.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const UserProfilePage = () => {
     try {
       setIsLoadingCandidatures(true);
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://192.168.252.2:8080/api/v1/candidatures/utilisateur/${user.id}`, {
+      const response = await fetch(`http://oda.bot.nu:8080/api/v1/candidatures/utilisateur/${user.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ const UserProfilePage = () => {
       formData.append('profileData', JSON.stringify(profileToSave));
       if (profile.cv) formData.append('cv', profile.cv);
 
-      const response = await fetch(`http://192.168.252.2:8080/api/v1/profils/${user.profil}`, {
+      const response = await fetch(`http://oda.bot.nu:8080/api/v1/profils/${user.profil}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -118,7 +118,7 @@ const Hire = () => {
             <p>Vérifiez :</p>
             <ul>
               <li>🌐 La connexion réseau</li>
-              <li>🔗 L'URL de l'API : http://192.168.252.2:8080/api/v1/programmes</li>
+              <li>🔗 L'URL de l'API : http://oda.bot.nu:8080/api/v1/programmes</li>
               <li>🖥️ Que le serveur backend est démarré</li>
               <li>🔍 Les logs de la console pour plus de détails</li>
             </ul>
