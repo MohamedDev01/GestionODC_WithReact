@@ -57,11 +57,11 @@ const Navbar = () => {
             Postuler
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/certificat" className={`menu-item ${location.pathname === '/certificat' ? 'active' : ''}`}>
             Certificat
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/learn" className={`menu-item ${location.pathname === '/learn' ? 'active' : ''}`}>
             Apprendre

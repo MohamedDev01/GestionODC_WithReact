@@ -42,7 +42,7 @@
   margin: 0 auto;
 }
 
-/* Barre de recherche avec icône SVG */
+/* Barre de recherche */
 .search-container {
   display: flex;
   justify-content: center;
@@ -53,7 +53,7 @@
 
 .search-input {
   width: 100%;
-  padding: 16px 45px 16px 20px; /* padding droit pour l'icône */
+  padding: 16px 45px 16px 20px;
   font-size: 16px;
   font-weight: 400;
   border: 2px solid #e1e5e9;
@@ -63,7 +63,6 @@
   outline: none;
   transition: all 0.3s ease;
 
-  /* Icône simple en background SVG */
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='10' cy='10' r='7' stroke='rgba(0,0,0,0.3)' stroke-width='2' fill='none'/><line x1='15' y1='15' x2='22' y2='22' stroke='rgba(0,0,0,0.3)' stroke-width='2'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -113,6 +112,7 @@
   flex-shrink: 0;
 }
 
+/* Conteneur texte + bouton */
 .CourseText {
   padding: 30px;
   flex: 1;
@@ -121,6 +121,7 @@
   justify-content: space-between;
 }
 
+/* Titres et paragraphes */
 .CourseText h2 {
   font-size: 1.8rem;
   font-weight: bold;
@@ -153,6 +154,40 @@
   color: var(--color-primary);
 }
 
+/* Bouton Postuler */
+.apply-btn {
+  display: inline-block;
+  background: transparent;
+  color: #f97316;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: 2px solid #f97316;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: auto;
+  max-width: fit-content;
+
+  margin-top: 12px;
+  align-self: flex-end; /* bouton aligné à droite dans le parent flex */
+  transition: all 0.3s ease;
+}
+
+.apply-btn:hover {
+  background: #f97316;
+  color: white;
+}
+
+.apply-btn:active {
+  transform: scale(0.97);
+}
+
+.apply-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3);
+}
+
 /* Responsive styles */
 @media screen and (max-width: 768px) {
   .top-img {
@@ -171,7 +206,7 @@
   .search-input {
     width: 90%;
     max-width: 320px;
-    padding: 14px 40px 14px 16px; /* padding droit ajusté */
+    padding: 14px 40px 14px 16px;
   }
 
   .Courses {
