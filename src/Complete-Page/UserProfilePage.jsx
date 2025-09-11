@@ -330,8 +330,7 @@ const UserProfilePage = () => {
                 <button
                   className="evaluation-link-btn"
                   onClick={() => window.open(
-                    'http://oda.bot.nu:4010/#/formulaires/public/6b834e2a-ce91-458d-92d9-190a1960ae1d',
-                    '_blank'
+                    'http://api-evo.sytes.net:4000/#/formulaires/public/6b834e2a-ce91-458d-92d9-190a1960ae1d'
                   )}
                 >
                   Aller à l'évaluation →

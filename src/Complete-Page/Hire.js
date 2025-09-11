@@ -128,8 +128,7 @@ const Hire = () => {
             <div className="Security" key={programme.id_programme || programme.id || index}>
               <img
                 src={
-                  programme.affiche || 
-                  "https://www.google.com/url?sa=i&url=https%3A%2F%2Ffr.wikipedia.org%2Fwiki%2FFichier%3AImage_created_with_a_mobile_phone.png&psig=AOvVaw19-5BDFOcc5PMLu-Se9BXv&ust=1757512953270000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOi_rozsy48DFQAAAAAdAAAAABAE"
+                  programme.affiche 
                 }
                 alt={programme.nom_programme || programme.name || "Programme"}
                 onError={(e) => {
