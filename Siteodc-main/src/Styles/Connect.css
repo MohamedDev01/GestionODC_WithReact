@@ -1,0 +1,307 @@
+/* src/Styles/Connect.css (Version fidèle à la nouvelle maquette) */
+
+:root {
+  --orange-primary: #f97316;
+  --dark-text: #1f2937;
+  --light-text: #6b7280;
+  --border-color: #d1d5db;
+  --page-bg: #f9fafb;
+}
+
+/* Préfixe du champ téléphone */
+.phone-prefix {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  background-color: transparent;
+  color: var(--dark-text);
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 0 8px 0;
+  margin-right: 8px;
+  transition: border-color 0.3s ease;
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.connect-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 180px);
+  padding: 2rem;
+  background-color: var(--page-bg);
+}
+
+.connect-card {
+  display: flex;
+  max-width: 1050px;
+  width: 100%;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+.connect-left-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.phone-image {
+  max-width: 300px;
+  width: 100%;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+}
+
+.connect-right-panel {
+  flex: 1.5;
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.connect-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--dark-text);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.connect-subtitle {
+  font-size: 14px;
+  color: var(--light-text);
+  margin-bottom: 2.5rem;
+  max-width: 450px;
+  line-height: 1.6;
+}
+
+.connect-form {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: var(--orange-primary);
+  font-weight: 500;
+}
+
+
+.connect-right-panel .form-group input {
+
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  
+
+  border-bottom: 1px solid var(--border-color) !important;
+  
+  /* Autres propriétés */
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  width: 100% !important;
+  padding: 8px 0 !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.connect-right-panel .form-group input:focus {
+  outline: none !important;
+  border-bottom-color: var(--orange-primary) !important;
+}
+
+
+
+.form-terms {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.form-terms label {
+  font-size: 14px;
+  color: var(--light-text);
+}
+
+.form-terms input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--orange-primary);
+}
+
+.submit-button {
+  width: auto;
+  display: inline-block;
+  background-color: #000000;
+  color: var(--orange-primary);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #333333;
+}
+
+.login-prompt {
+  margin-top: 1.5rem;
+  font-size: 14px;
+  color: var(--light-text);
+}
+
+.login-prompt a {
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* --- Styles pour les erreurs et validation --- */
+.form-group input.error {
+  border-bottom-color: #ef4444; /* Rouge pour les erreurs */
+  background-color: #fef2f2; /* Fond légèrement rouge */
+}
+
+.error-message {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 0.25rem;
+  display: block;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style pour le bouton désactivé */
+.submit-button.disabled {
+  background-color: #9ca3af;
+  color: #6b7280;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.submit-button.disabled:hover {
+  background-color: #9ca3af;
+}
+
+/* Style pour les champs valides (optionnel) */
+.form-group input:valid:not(:placeholder-shown) {
+  border-bottom-color: #10b981; 
+}
+
+/* Style pour les messages d'erreur des termes */
+.form-terms .error-message {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Styles pour les champs de mot de passe avec icône */
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  flex: 1;
+  padding-right: 40px; /* Espace pour l'icône */
+}
+
+.eye-toggle {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--light-text);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.eye-toggle:hover {
+  color: var(--dark-text);
+}
+
+.eye-toggle svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+/* Amélioration du placeholder */
+.form-group input::placeholder {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Focus amélioré pour les champs en erreur */
+.form-group input.error:focus {
+  border-bottom-color: #ef4444;
+  box-shadow: 0 1px 0 0 #ef4444;
+}
+
+@media (max-width: 992px) {
+  .connect-left-panel {
+    display: none;
+  }
+  .connect-card {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .connect-title {
+    font-size: 28px;
+  }
+  .connect-right-panel {
+    padding: 2rem 1.5rem;
+  }
+  
+  .error-message {
+    font-size: 11px;
+  }
+}

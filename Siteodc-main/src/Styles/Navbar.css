@@ -1,0 +1,184 @@
+/* ---------------- Navigation ---------------- */
+.navbar {
+    background-color: var(--color-black);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+    margin-top: 10px;
+    margin-left: 60px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: -25px;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: left;
+    margin: -25px;
+}
+
+.menu li {
+    margin: 0 30px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--color-white);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.menu a.active {
+    color: var(--color-primary);
+    text-decoration: none;
+    text-decoration-thickness: 2px;
+}
+
+.menu a:hover,
+a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-white);
+    text-decoration-thickness: 2px;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background-color: var(--color-white);
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+/* Responsive Navigation - Tablette et mobile */
+@media screen and (max-width: 1024px) {
+    /* Navigation fixes */
+    .navbar {
+        padding: 10px 20px;
+        min-height: 80px;
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    .logo-img {
+        height: 40px;
+        margin-left: 20px;
+    }
+
+    .navbar .logo {
+        margin-left: 10px;
+    }
+
+    .menu-toggle {
+        display: flex;
+        margin-right: 30px; /* Décalé de l'extrémité */
+        margin-left: auto;
+    }
+
+    .menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: var(--color-black);
+        display: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu li {
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px solid #333;
+    }
+
+    .menu a {
+        display: block;
+        padding: 15px 20px;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .menu a:hover {
+        background-color: #333;
+    }
+}
+
+/* Mobile spécifique */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px;
+        min-height: 70px;
+    }
+
+    .logo-img {
+        height: 35px;
+        margin-left: 10px;
+    }
+
+    .navbar .logo {
+        margin-left: 5px;
+    }
+
+    .menu-toggle {
+        margin-right: 20px; /* Décalé de l'extrémité sur mobile */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .logo-img {
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .navbar {
+        padding: 8px;
+    }
+
+    .menu-toggle span {
+        width: 20px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar {
+        display: none;
+    }
+}

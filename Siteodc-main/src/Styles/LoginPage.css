@@ -1,0 +1,198 @@
+/* src/Styles/LoginPage.css */
+
+.login-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 180px);
+  background-color: #ffffff;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 3rem;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.login-page-container .login-card {
+   background: rgba(255, 255, 255, 0.95);
+   box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+   transition: all 0.3s ease;
+   animation: slideUp 0.6s ease-out;
+
+}
+
+.login-page-container .login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+
+}
+
+.login-title {
+  color: #f97316;
+  font-weight: 800;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+/* Inputs avec icônes */
+.input-with-icon {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem; /* Espace gauche pour icône */
+  border: 1px solid #f97316;
+  border-radius: 12px;
+  background-color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.input-with-icon input::placeholder {
+  color: #adb5bd;
+}
+
+.input-with-icon input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
+}
+
+/* Styles pour les icônes React */
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f97316;
+  font-size: 1.1rem;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.input-with-icon:focus-within .input-icon {
+  color: #ea580c;
+}
+
+/* Bouton bascule mot de passe */
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #f97316;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle:hover {
+  color: #ea580c;
+}
+
+/* Bouton connexion */
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f97316;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.login-button:hover {
+  background-color: #ea580c;
+}
+
+/* Options et liens */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remember-me input[type="checkbox"] {
+  accent-color: #f97316;
+}
+
+.forgot-password-link {
+  color: #4b5563;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.register-prompt {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.register-prompt a {
+  color: #f97316;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* Messages d'erreur et confirmation */
+.confirmation-message {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
