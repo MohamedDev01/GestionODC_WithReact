@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = ' http://api-evo.sytes.net:8080/swagger-ui/index.html';
+const API_BASE_URL = 'https://foo-lan-stretch-depot.trycloudflare.com/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

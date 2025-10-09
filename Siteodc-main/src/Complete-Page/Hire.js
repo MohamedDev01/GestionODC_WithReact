@@ -12,7 +12,7 @@ const Hire = () => {
     const fetchProgrammes = async () => {
       try {
         console.log("🔄 Début de la requête API...");
-        const response = await axios.get("http://oda.bot.nu:8080/api/v1/programmes");
+        const response = await axios.get("https://foo-lan-stretch-depot.trycloudflare.com/api/v1/programmes");
         
         // Debug complet de la réponse
         console.log("📊 Réponse complète :", response);

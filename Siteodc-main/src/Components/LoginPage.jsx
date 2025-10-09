@@ -93,7 +93,7 @@ const LoginPage = () => {
 
       await login(loginData, rememberMe);
       toast.success("Connexion réussie ! Bienvenue !");
-      navigate("/home");
+      navigate("/profile");
     } catch (error) {
       const status = error.response?.status;
       if (status === 401) toast.error("Email ou mot de passe incorrect");
